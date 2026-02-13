@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Smart Farm - منصة الاستثمار الزراعي الذكي</title>
-    <link rel="stylesheet" href="./home2/hom2.css">
+    <link rel="stylesheet" href="./hom2.css">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -1316,7 +1316,7 @@
         </div>
     </div>
 
-    <script src="./home2/hom2.js"></script>
+    <script src="./hom2.js"></script>
     <script type="module">
         /* =========================
            🔥 Firebase Imports
@@ -1376,7 +1376,7 @@
 
                 if (!userSnap.exists()) {
                     await signOut(auth);
-                    location.href = "././signinsignup/signin.html";
+                    location.href = "./signin.html";
                     return;
                 }
 
@@ -1402,7 +1402,7 @@
             } catch (err) {
                 console.error(err);
                 await signOut(auth);
-                location.href = "././signinsignup/signin.html";
+                location.href = "./signin.html";
             }
         });
 
@@ -1417,7 +1417,7 @@
             } else if (role === "investor") {
                 location.href = "investor.html";
             } else {
-                location.href = "././signinsignup/signin.html";
+                location.href = "./signin.html";
             }
         }
 
@@ -1435,7 +1435,7 @@
         logoutBtn?.addEventListener("click", async (e) => {
             e.preventDefault();
             await signOut(auth);
-            location.href = "./signinsignup/signin.html";
+            location.href = " signin.html";
         });
     </script>
     <script>
@@ -1485,3 +1485,4 @@ document.addEventListener("DOMContentLoaded", function () {
 </body>
 
 </html>
+
