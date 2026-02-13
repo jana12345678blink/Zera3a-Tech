@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap">
     <!-- ملف CSS الخارجي -->
-    <link rel="stylesheet" href="./بنوك زراعيه333/banks.css">
+    <link rel="stylesheet" href="./banks.css">
     <style>
         /* Footer */
     .site-footer {
@@ -727,7 +727,7 @@ body.dark .topbar-btn:hover {
     <div class="notification" id="notification"></div>
 
     <!-- ملف JavaScript الخارجي -->
-    <script src="./بنوك زراعيه333/banks.js"></script>
+    <script src="./banks.js"></script>
 <script type="module">
     /* ================= Firebase Imports ================= */
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
@@ -810,7 +810,7 @@ onAuthStateChanged(auth, async (user) => {
 
   // ❌ مش مسجل دخول
   if (!user) {
-    window.location.href = "./signinsignup/signin.html";
+    window.location.href = "./signin.html";
     return;
   }
 
@@ -819,7 +819,7 @@ onAuthStateChanged(auth, async (user) => {
     const userSnap = await getDoc(userRef);
 
     if (!userSnap.exists()) {
-      window.location.href = "./signinsignup/signin.html";
+      window.location.href = "./signin.html";
       return;
     }
 
@@ -829,7 +829,7 @@ onAuthStateChanged(auth, async (user) => {
     if (role !== "farmer" && role !== "worker") {
       alert("⚠️ انت موجود في صفحة غير مخصصة ليك");
       setTimeout(() => {
-        window.location.href = "./signinsignup/signin.html";
+        window.location.href = "./signin.html";
       }, 1500);
       return;
     }
@@ -842,7 +842,7 @@ onAuthStateChanged(auth, async (user) => {
 
   } catch (error) {
     console.error(error);
-    window.location.href = "./signinsignup/signin.html";
+    window.location.href = "./signin.html";
   }
 });
 
@@ -851,7 +851,7 @@ if (backHomeBtn) {
   backHomeBtn.addEventListener("click", async () => {
     const user = auth.currentUser;
     if (!user) {
-      window.location.href = "./signinsignup/signin.html";
+      window.location.href = "./signin.html";
       return;
     }
 
@@ -860,7 +860,7 @@ if (backHomeBtn) {
       const userSnap = await getDoc(userRef);
 
       if (!userSnap.exists()) {
-        window.location.href = "./signinsignup/signin.html";
+        window.location.href = "./signin.html";
         return;
       }
 
@@ -877,7 +877,7 @@ if (backHomeBtn) {
 
     } catch (err) {
       console.error(err);
-      window.location.href = "./signinsignup/signin.html";
+      window.location.href = "./signin.html";
     }
   });
 }
@@ -887,7 +887,7 @@ const logoutBtn = document.getElementById("logoutBtn");
 if (logoutBtn) {
   logoutBtn.addEventListener("click", async () => {
     await signOut(auth);
-    window.location.href = "./signinsignup/signin.html";
+    window.location.href = "./signin.html";
   });
 }
 
@@ -947,3 +947,4 @@ if (logoutBtn) {
 </body>
 
 </html>
+
