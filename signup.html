@@ -468,9 +468,9 @@ document.getElementById("signupForm").addEventListener("submit", async e => {
     // 4. Redirect based on role
     setTimeout(() => {
       let redirectUrl = "index.html";
-      if (role === "farmer") redirectUrl = "../farmer-ar.html";
-      else if (role === "investor") redirectUrl = "../investor.html";
-      else if (role === "worker") redirectUrl = "../worker.html";
+      if (role === "farmer") redirectUrl = "./farmer-ar.html";
+      else if (role === "investor") redirectUrl = "./investor.html";
+      else if (role === "worker") redirectUrl = "./worker.html";
       
       window.location.href = redirectUrl;
     }, 1500);
@@ -635,3 +635,4 @@ function getTrans(key) {
 </script>
 </body>
 </html>
+
