@@ -215,6 +215,87 @@
             border-color: #fff;
             color: #fff;
         }
+        /* زرار المينيو */
+.menu-toggle{
+    display:none;
+    font-size:26px;
+    background:none;
+    border:none;
+    color:#fff;
+    cursor:pointer;
+}
+
+/* ===== MOBILE RESPONSIVE NAVBAR ===== */
+.menu-toggle{
+    display:none;
+    font-size:24px;
+    background:none;
+    border:none;
+    color:#fff;
+    cursor:pointer;
+}
+
+/* من 786px وتحت */
+@media (max-width:786px){
+
+    .menu-toggle{
+        display:block;
+    }
+
+    .navbar-main{
+        padding:12px 18px;
+        width:92%;
+    }
+
+    /* المنيو في نص الصفحة */
+    .navbar-center{
+        position:absolute;
+        top:100%;
+        left:50%;
+        transform:translateX(-50%);
+        width:90%;
+        background:#0f4c5c;
+        border-radius:20px;
+        padding:0;
+        max-height:0;
+        overflow:hidden;
+        transition:0.4s;
+        flex-direction:column;
+        box-shadow:0 8px 25px rgba(0,0,0,0.2);
+        margin-top:10px;
+    }
+
+    /* لما تتفتح */
+    .navbar-center.active{
+        max-height:500px;
+        padding:15px 0;
+    }
+
+    .navbar-links{
+        flex-direction:column;
+        width:100%;
+        gap:5px;
+    }
+
+    .navbar-links li{
+        width:100%;
+        text-align:center;
+    }
+
+    .navbar-links a{
+        display:block;
+        padding:15px;
+        width:100%;
+        font-size:16px;
+    }
+
+    body.dark .navbar-center{
+        background:#0a2e3a;
+    }
+}
+
+
+
     </style>
 </head>
 
@@ -235,7 +316,7 @@
             <li><a href="tasks.html" data-key="nav_community">Community</a></li>
             <li><a href="contact-about.html" data-key="nav_contact">contact us</a></li>
             <li><a href="banks.html" data-key="nav_banks">banks</a></li>
-            <li><a href="offer.html" data-key="nav_packages">packages</a></li>
+            <li><a href="./offer.html" data-key="nav_packages">packages</a></li>
 
 
 
@@ -245,9 +326,12 @@
         <ul class="navbar-links navbar-center" id="guestLinks" style="display:flex">
             <li><a href="contact-about.html" data-key="nav_about">About Us</a></li>
         </ul>
-
+<button class="menu-toggle" id="menuToggle">
+        <i class="fas fa-bars"></i>
+    </button>
         <!-- RIGHT -->
         <div class="navbar-right">
+
 
             <button id="langToggle" class="btn">EN</button>
             <button id="themeToggle" class="btn">☀️</button>
@@ -1496,24 +1580,34 @@
     </script>
 
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
+ <script>
+const menuBtn = document.getElementById("menuToggle");
+menuBtn.onclick = () => {
 
-            const navbarImage = document.getElementById("navbarProfileImage");
-            const defaultIcon = document.getElementById("defaultUserIcon");
+    // لو المستخدم مش عامل login
+    if(getComputedStyle(guestLinks).display !== "none"){
+        guestLinks.classList.toggle("active");
+    }
 
-            const savedImage = localStorage.getItem("profileImage");
+    // لو عامل login
+    if(getComputedStyle(authLinks).display !== "none"){
+        authLinks.classList.toggle("active");
+    }
+};
 
-            if (savedImage) {
-                navbarImage.src = savedImage;
-                navbarImage.style.display = "inline-block";
-                defaultIcon.style.display = "none";
-            }
+// يقفل لو ضغط برا
+document.addEventListener("click",(e)=>{
+    if(!menuBtn.contains(e.target) &&
+       !guestLinks.contains(e.target) &&
+       !authLinks.contains(e.target)){
+        guestLinks.classList.remove("active");
+        authLinks.classList.remove("active");
+    }
+});
+</script>
 
-        });
-    </script>
+
 
 </body>
-
 
 </html>
