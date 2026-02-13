@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>إنشاء حساب | Zera3a-Tech</title>
 
   <!-- Google Font & Icons -->
@@ -10,320 +10,323 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
-    /* ========== RESET ========== */
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-      font-family:"Cairo",sans-serif;
+    /* ========== RESET & BASE ========== */
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: "Cairo", sans-serif; }
+    
+    html, body { width: 100%; overflow-x: hidden; }
+
+    :root {
+      /* Light Mode Colors */
+      --primary: #0f4c5c;
+      --secondary: #e67e5f;
+      --bg: #faf9f6;
+      --card: #ffffff;
+      --border: #e5e7eb;
+      --text: #0f172a;
+      --muted: #6b7280;
+      --nav-bg: rgba(255, 255, 255, 0.9);
+      --nav-border: rgba(0,0,0,0.05);
+      --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
     }
 
-    /* ========== COLORS & VARIABLES ========== */
-    :root{
-      --primary:#0f4c5c;
-      --secondary:#e67e5f;
-      --bg:#faf9f6;
-      --card:#ffffff;
-      --border:#e5e7eb;
-      --text:#0f172a;
-      --muted:#6b7280;
-      
-      /* Navbar Variables (Added to fix missing vars) */
-      --primary-teal:#0f4c5c;
-      --action-orange:#e67e5f;
-      --text-secondary:#6b7280;
+    body.dark {
+      /* Dark Mode Colors */
+      --bg: #0f172a;
+      --card: #1e293b;
+      --primary: #0f4c5c;
+      --secondary: #fb923c;
+      --text: #f1f5f9;
+      --muted: #94a3b8;
+      --border: #334155;
+      --nav-bg: rgba(30, 41, 59, 0.9);
+      --nav-border: #475569;
+      --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
     }
 
-    body{
-      background:var(--bg);
-      min-height:100vh;
+    body {
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
       transition: background 0.3s, color 0.3s;
     }
 
-    /* Dark Mode Overrides */
-    body.dark{
-      --bg:#0f172a;
-      --card:#1e293b;
-      --primary:#38bdf8;
-      --secondary:#fb923c;
-      --text:#f1f5f9;
-      --muted:#94a3b8;
-      --border:#334155;
-      
-      /* Dark Navbar Vars */
-      --primary-teal:#38bdf8;
-      --action-orange:#fb923c;
-      --text-secondary:#cbd5e1;
-    }
-
-    /* ========== SPLIT LAYOUT ========== */
-    .page{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      min-height:100vh;
-    }
-
-    /* ========== TOP NAV BAR ========== */
+    /* ========== NAVBAR (Floating Pill) ========== */
     .top-nav-bar {
       position: fixed;
-      top: 20px;
+      top: 15px;
       z-index: 2000;
       display: flex;
       align-items: center;
-      gap: 10px;
-      background: rgba(255, 255, 255, 0.9);
+      gap: 8px;
+      background: var(--nav-bg);
       backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       padding: 8px 12px;
       border-radius: 40px;
       box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-      border: 1px solid rgba(0,0,0,0.05);
-      transition: background 0.3s, border-color 0.3s;
+      border: 1px solid var(--nav-border);
+      transition: all 0.3s;
+      max-width: calc(100% - 40px);
+      overflow-x: auto;
+      scrollbar-width: none;
     }
+    .top-nav-bar::-webkit-scrollbar { display: none; }
 
-    /* Position adjustments for RTL/LTR */
+    /* RTL/LTR Positioning */
     html[dir="rtl"] .top-nav-bar { right: 20px; left: auto; }
     html[dir="ltr"] .top-nav-bar { left: 20px; right: auto; }
 
-    body.dark .top-nav-bar {
-      background: rgba(30, 41, 59, 0.9);
-      border-color: #475569;
-    }
-
-    .nav-btn {
+    /* Navbar Buttons */
+    .nav-btn, .control-pill {
       background: transparent;
       border: none;
       cursor: pointer;
-      padding: 8px 16px;
+      padding: 8px 14px;
       border-radius: 30px;
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--primary-teal);
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--primary);
       display: flex;
       align-items: center;
       gap: 8px;
-      transition: all 0.3s;
+      transition: all 0.2s;
+      white-space: nowrap;
     }
-    .nav-btn:hover { background: rgba(15, 76, 92, 0.1); color: var(--action-orange); }
+    
+    .nav-btn:hover, .control-pill:hover {
+      background: rgba(0,0,0,0.05);
+      transform: translateY(-1px);
+    }
+    body.dark .nav-btn:hover, body.dark .control-pill:hover {
+      background: rgba(255,255,255,0.1);
+    }
 
-    .nav-divider { width: 1px; height: 24px; background-color: #ddd; margin: 0 4px; }
-    body.dark .nav-divider { background-color: #475569; }
+    .nav-divider {
+      width: 1px;
+      height: 20px;
+      background-color: var(--border);
+      margin: 0 4px;
+    }
 
-    .control-pill {
-      background: transparent;
-      border: none;
+    /* ========== LAYOUT ========== */
+    .page {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 100vh;
+      width: 100%;
+    }
+
+    /* LEFT (FORM) */
+    .left {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 100px 20px 40px 20px; /* Top padding for nav */
+    }
+
+    .card {
+      background: var(--card);
+      width: 100%;
+      max-width: 500px;
+      padding: 40px;
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+    }
+
+    .title { font-size: 28px; font-weight: 800; color: var(--primary); margin-bottom: 8px; }
+    .subtitle { font-size: 14px; color: var(--muted); margin-bottom: 25px; }
+
+    /* ROLES */
+    .roles { display: flex; gap: 10px; margin-bottom: 25px; background: var(--bg); padding: 5px; border-radius: 16px; }
+    
+    .role {
+      flex: 1;
+      padding: 10px;
+      border-radius: 12px;
+      text-align: center;
       cursor: pointer;
-      padding: 8px 16px;
-      border-radius: 30px;
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--text-secondary);
-      display: flex;
-      align-items: center;
-      gap: 8px;
+      font-weight: 700;
+      color: var(--muted);
       transition: all 0.3s;
+      font-size: 14px;
     }
-    .control-pill:hover { background: rgba(0,0,0,0.05); color: var(--primary-teal); }
-    body.dark .control-pill:hover { background: rgba(255,255,255,0.1); color: white; }
-
-    /* ========== LEFT (FORM) ========== */
-    .left{
-      display:flex;
-      justify-content:center;
-      align-items:center;
+    
+    .role.active {
+      background: var(--primary);
+      color: #fff;
+      box-shadow: 0 4px 10px rgba(15, 76, 92, 0.2);
     }
 
-    .card{
-      background:var(--card);
-      width:100%;
-      max-width:520px;
-      padding:50px 45px;
-      border-radius:24px;
-    }
+    /* FORM */
+    form { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    
+    .group { display: flex; flex-direction: column; }
+    .group.full { grid-column: 1 / 3; }
 
-    .top-links{
-      display:flex;
-      justify-content:space-between;
-      margin-bottom:25px;
-      font-size:14px;
-      color:var(--muted);
-    }
+    label { font-size: 12px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
 
-    .title{
-      font-size:28px;
-      font-weight:800;
-      color:var(--primary);
-      margin-bottom:6px;
-    }
-
-    .subtitle{
-      font-size:14px;
-      color:var(--muted);
-      margin-bottom:30px;
-    }
-
-    /* ========== ROLE ========== */
-    .roles{
-      display:flex;
-      gap:12px;
-      margin-bottom:30px;
-    }
-
-    .role{
-      flex:1;
-      padding:12px;
-      border-radius:999px;
-      border:1px solid var(--border);
-      background:#f5f5f5;
-      text-align:center;
-      cursor:pointer;
-      font-weight:700;
+    input {
+      padding: 12px 16px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--bg);
       color: var(--text);
+      font-size: 15px;
+      width: 100%;
+      transition: border-color 0.3s;
     }
-    body.dark .role { background: #334155; border-color: #475569; }
+    input:focus { outline: none; border-color: var(--primary); }
 
-    .role.active{
-      background:var(--primary);
-      color:#fff;
-      border-color:var(--primary);
+    button.submit-btn {
+      grid-column: 1 / 3;
+      margin-top: 10px;
+      padding: 16px;
+      border: none;
+      border-radius: 14px;
+      background: var(--secondary);
+      color: #fff;
+      font-size: 16px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform 0.2s, opacity 0.2s;
+    }
+    button.submit-btn:hover { opacity: 0.9; transform: scale(1.01); }
+
+    .signin { margin-top: 20px; text-align: center; font-size: 14px; color: var(--muted); }
+    .signin a { color: var(--primary); font-weight: 800; text-decoration: none; }
+
+    /* RIGHT PANEL */
+    .right {
+      background: var(--primary);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 60px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    /* Decorative Circle */
+    .right::before {
+      content: '';
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 50%;
+      top: -50px;
+      right: -50px;
     }
 
-    /* ========== FORM ========== */
-    form{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:18px;
-    }
+    .brand { font-size: 24px; font-weight: 800; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+    .welcome { font-size: 32px; font-weight: 800; line-height: 1.4; margin-bottom: 30px; }
+    .features li { margin-bottom: 15px; display: flex; align-items: center; gap: 10px; font-size: 16px; opacity: 0.9; }
+    .features i { color: var(--secondary); }
 
-    .group{
-      display:flex;
-      flex-direction:column;
+    /* ========== TOAST NOTIFICATION (No Alerts) ========== */
+    .toast-container {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 3000;
+      pointer-events: none;
     }
-
-    .group.full{
-      grid-column:1/3;
-    }
-
-    label{
-      font-size:13px;
-      font-weight:700;
-      margin-bottom:6px;
-      color:var(--primary);
-    }
-
-    input{
-      padding:14px 16px;
-      border-radius:12px;
-      border:1px solid var(--border);
-      font-size:15px;
+    .toast {
       background: var(--card);
       color: var(--text);
+      padding: 12px 24px;
+      border-radius: 50px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      border: 1px solid var(--border);
+      font-size: 14px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
     }
-
-    input:focus{
-      outline:none;
-      border-color:var(--primary);
-    }
-
-    button{
-      margin-top:10px;
-      padding:16px;
-      border:none;
-      border-radius:14px;
-      background:var(--secondary);
-      color:#fff;
-      font-size:16px;
-      font-weight:800;
-      cursor:pointer;
-    }
-    button:hover { opacity: 0.9; }
-
-    .signin{
-      margin-top:25px;
-      text-align:center;
-      font-size:14px;
-    }
-
-    .signin a{
-      color:var(--primary);
-      font-weight:800;
-      text-decoration:none;
-    }
-
-    /* ========== RIGHT PANEL ========== */
-    .right{
-      background:var(--primary);
-      color:#fff;
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-      padding:80px;
-    }
-
-    .brand{
-      font-size:26px;
-      font-weight:800;
-      margin-bottom:30px;
-    }
-
-    .welcome{
-      font-size:34px;
-      font-weight:800;
-      margin-bottom:30px;
-    }
-
-    .features{
-      list-style:none;
-      font-size:16px;
-    }
-
-    .features li{
-      margin-bottom:14px;
-    }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast.success i { color: #10b981; }
+    .toast.error i { color: #ef4444; }
 
     /* ========== RESPONSIVE ========== */
-    @media(max-width:900px){
-      .page{ grid-template-columns:1fr; }
-      .right{ display:none; }
-      form{ grid-template-columns:1fr; }
-      .group.full{ grid-column:auto; }
+    @media(max-width: 900px) {
+      .page { grid-template-columns: 1fr; }
+      .right { display: none; }
+      .left { padding-top: 90px; justify-content: flex-start; }
+      form { grid-template-columns: 1fr; }
+      .group.full { grid-column: auto; }
+    }
+    
+    @media(max-width: 480px) {
+      .top-nav-bar { padding: 6px 10px; gap: 4px; }
+      .nav-btn span, .control-pill span { display: none; } /* Hide text on very small screens, show icons only */
+      .nav-btn, .control-pill { padding: 8px; }
+      .card { padding: 25px 20px; }
+      .title { font-size: 24px; }
     }
   </style>
 </head>
 
 <body>
-  
-  <!-- TOP NAV -->
+
+  <!-- NAV BAR: Back | Dark Mode | Lang | Divider | Home -->
   <div class="top-nav-bar">
-    <button class="nav-btn" onclick="goBackAction()"><i class="fas fa-arrow-right"></i> <span data-i18n="back-btn">العودة</span></button>
-    <button class="nav-btn" onclick="goHome()"><i class="fas fa-home"></i> <span data-i18n="home-btn">الرئيسية</span></button>
+    <!-- زر العودة -->
+    <button class="nav-btn" onclick="goBack()" id="btnBack">
+      <i class="fas fa-arrow-right" id="iconBack"></i> 
+      <span data-i18n="back-btn">العودة</span>
+    </button>
+    
+    <!-- زر الوضع الليلي -->
+    <button class="control-pill" onclick="toggleTheme()" title="Theme">
+      <i class="fas fa-moon" id="themeIcon"></i> 
+      <span data-i18n="dark-mode">ليلي</span>
+    </button>
+    
+    <!-- زر الترجمة -->
+    <button class="control-pill" onclick="toggleLanguage()" title="Language">
+      <i class="fas fa-globe"></i> 
+      <span id="langText">English</span>
+    </button>
+
     <div class="nav-divider"></div>
-    <button class="control-pill" onclick="toggleTheme()"><i class="fas fa-adjust"></i> <span id="themeText" data-i18n="dark-mode">الليلي</span></button>
-    <button class="control-pill" onclick="toggleLanguage()"><i class="fas fa-globe"></i> <span id="langText">English</span></button>
+    
+    <!-- زر الرئيسية -->
+    <button class="nav-btn" onclick="goHome()">
+      <i class="fas fa-home"></i>
+      <span data-i18n="home-btn">الرئيسية</span>
+    </button>
   </div>
 
   <div class="page">
-    <!-- RIGHT PANEL -->
+    <!-- RIGHT PANEL (Hidden on Mobile) -->
     <div class="right">
-      <div class="brand">SMART FARM 🌱</div>
-      <div class="welcome" data-i18n="hero-title">أهلاً بك في منصة المستقبل</div>
+      <div class="brand"><i class="fas fa-leaf"></i> ZERA3A TECH</div>
+      <div class="welcome" data-i18n="hero-title">منصة المستقبل للزراعة الذكية</div>
       <ul class="features">
-        <li data-i18n="feat-1">✔ إدارة محاصيلك بسهولة</li>
-        <li data-i18n="feat-2">✔ وصول مباشر للمستهلكين</li>
-        <li data-i18n="feat-3">✔ أمان وشفافية</li>
+        <li data-i18n="feat-1"><i class="fas fa-check-circle"></i> إدارة المحاصيل بذكاء</li>
+        <li data-i18n="feat-2"><i class="fas fa-check-circle"></i> ربط مباشر بالسوق</li>
+        <li data-i18n="feat-3"><i class="fas fa-shield-alt"></i> أمان البيانات وشفافيتها</li>
       </ul>
     </div>
    
     <!-- LEFT PANEL (FORM) -->
     <div class="left">
       <div class="card">
-        <h2 class="title" data-i18n="title">إنشاء حساب</h2>
-        <p class="subtitle" data-i18n="sub">أدخل بياناتك للمتابعة</p>
+        <h2 class="title" data-i18n="title">إنشاء حساب جديد</h2>
+        <p class="subtitle" data-i18n="sub">انضم إلينا وابدأ رحلتك الزراعية</p>
 
-        <!-- ROLE SELECTOR -->
+        <!-- ROLES -->
         <div class="roles">
-          <div class="role active" data-role="farmer" data-i18n="role-farmer">فلاح</div>
-          <div class="role" data-role="investor" data-i18n="role-investor">مستثمر</div> <!-- Based on provided text -->
-          <div class="role" data-role="worker" data-i18n="role-worker">عامل</div> <!-- Based on provided text -->
+          <div class="role active" onclick="selectRole('farmer', this)" data-i18n="role-farmer">فلاح</div>
+          <div class="role" onclick="selectRole('investor', this)" data-i18n="role-investor">مستثمر</div> 
+          <div class="role" onclick="selectRole('worker', this)" data-i18n="role-worker">عامل</div> 
         </div>
 
         <form id="signupForm">
@@ -331,17 +334,17 @@
 
           <div class="group">
             <label data-i18n="lbl-name">الاسم الكامل</label>
-            <input type="text" id="fullName" required>
+            <input type="text" id="fullName" required placeholder="Ex: Ahmed Ali">
           </div>
 
           <div class="group">
             <label data-i18n="lbl-phone">رقم الهاتف</label>
-            <input type="text" data-i18n-ph="ph-phone">
+            <input type="tel" id="phone" placeholder="01xxxxxxxx">
           </div>
 
           <div class="group full">
             <label data-i18n="lbl-email">البريد الإلكتروني</label>
-            <input type="email" id="email" required data-i18n-ph="ph-email">
+            <input type="email" id="email" required placeholder="name@example.com">
           </div>
 
           <div class="group">
@@ -354,22 +357,28 @@
             <input type="password" id="confirmPassword" required>
           </div>
 
-          <div class="group full">
-            <button type="submit" data-i18n="btn-submit">إنشاء الحساب</button>
-          </div>
+          <button type="submit" class="submit-btn" data-i18n="btn-submit">إنشاء الحساب</button>
         </form>
 
         <div class="signin">
-          <span data-i18n="txt-have-account">لديك حساب بالفعل؟</span> <a href="signin.html" data-i18n="link-signin">تسجيل الدخول</a>
+          <span data-i18n="txt-have-account">لديك حساب بالفعل؟</span> 
+          <a href="signin.html" data-i18n="link-signin">تسجيل الدخول</a>
         </div>
-
       </div>
+    </div>
+  </div>
+
+  <!-- TOAST CONTAINER -->
+  <div class="toast-container">
+    <div id="toast" class="toast">
+      <i class="fas fa-info-circle"></i>
+      <span id="toastMsg">Message</span>
     </div>
   </div>
 
 <!-- ========== FIREBASE MODULE ========== -->
 <script type="module">
-/* ================= FIREBASE ================= */
+/* ================= FIREBASE CONFIGURATION ================= */
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import {
   getAuth,
@@ -392,181 +401,237 @@ const firebaseConfig = {
   appId: "1:317371842198:web:4765ea8c0036ae64b10cb7"
 };
 
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-/* ================= ROLE SELECT ================= */
-document.querySelectorAll(".role").forEach(roleEl => {
-  roleEl.addEventListener("click", () => {
-    document.querySelectorAll(".role").forEach(r => r.classList.remove("active"));
-    roleEl.classList.add("active");
-    document.getElementById("roleSelect").value = roleEl.dataset.role;
-  });
-});
+/* ================= FORM HANDLING ================= */
+// Role Selection Logic is now global so it works with inline onclick
+window.selectRole = function(role, el) {
+  document.querySelectorAll(".role").forEach(r => r.classList.remove("active"));
+  el.classList.add("active");
+  document.getElementById("roleSelect").value = role;
+};
 
-/* ================= SIGN UP ================= */
 document.getElementById("signupForm").addEventListener("submit", async e => {
   e.preventDefault();
+  
+  const submitBtn = document.querySelector('.submit-btn');
+  const originalBtnText = submitBtn.innerText;
+  
+  // Loading State
+  submitBtn.disabled = true;
+  submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري المعالجة...';
 
   const role = document.getElementById("roleSelect").value;
   const fullName = document.getElementById("fullName").value;
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
   const confirmPassword = document.getElementById("confirmPassword").value;
+  const lang = window.currentLang;
 
+  // Client-side Validation
   if (password !== confirmPassword) {
-    alert(translations[currentLang]["err-pass"]);
+    showToast(getTrans("err-pass"), "error");
+    submitBtn.disabled = false;
+    submitBtn.innerText = originalBtnText;
+    return;
+  }
+
+  if (password.length < 6) {
+    showToast(getTrans("err-short-pass"), "error");
+    submitBtn.disabled = false;
+    submitBtn.innerText = originalBtnText;
     return;
   }
 
   try {
-    // إنشاء الحساب
+    // 1. Create Auth User
     const cred = await createUserWithEmailAndPassword(auth, email, password);
 
-    // حفظ الاسم في Auth
-    await updateProfile(cred.user, {
-      displayName: fullName
-    });
+    // 2. Update Profile
+    await updateProfile(cred.user, { displayName: fullName });
 
-    // حفظ البيانات في Firestore
+    // 3. Save to Firestore
     await setDoc(doc(db, "users", cred.user.uid), {
       fullName,
       email,
+      phone: document.getElementById("phone").value,
       role,
-      createdAt: serverTimestamp()
+      createdAt: serverTimestamp(),
+      isActive: true
     });
 
-    // رسالة ترحيب
-    alert(`${translations[currentLang]["welcome"]} ${fullName} 👋`);
+    showToast(`${getTrans("welcome")} ${fullName} 👋`, "success");
 
-    // تحويل حسب الدور
+    // 4. Redirect based on role
     setTimeout(() => {
-      if (role === "farmer") {
-        window.location.href = "./farmer-ar.html";
-      } else if (role === "investor") {
-        window.location.href = "./investor.html";
-      } else if (role === "worker") {
-        window.location.href = "./worker.html";
-      } else {
-        window.location.href = "index.html";
-      }
-    }, 1200);
+      let redirectUrl = "index.html";
+      if (role === "farmer") redirectUrl = "../farmer-ar.html";
+      else if (role === "investor") redirectUrl = "../investor.html";
+      else if (role === "worker") redirectUrl = "../worker.html";
+      
+      window.location.href = redirectUrl;
+    }, 1500);
 
   } catch (error) {
-    alert(error.message);
+    console.error(error);
+    showToast(error.message, "error");
+    submitBtn.disabled = false;
+    submitBtn.innerText = originalBtnText;
   }
 });
+
+// Helper to access translations from module
+function getTrans(key) {
+  return window.translations[window.currentLang][key] || key;
+}
 </script>
 
+<!-- ========== UI & TRANSLATION LOGIC ========== -->
 <script>
-/* ================= UI + TRANSLATION ================= */
-let currentLang = "ar";
-let isDarkMode = false;
+  // --- Global State ---
+  window.currentLang = "ar";
+  window.isDarkMode = false;
 
-const translations = {
-  ar: {
-    "back-btn": "العودة",
-    "home-btn": "الرئيسية",
-    "dark-mode": "الليلي",
-    "light-mode": "النهاري",
-    "title": "إنشاء حساب",
-    "sub": "أدخل بياناتك للمتابعة",
-    "role-farmer": "فلاح",
-    "role-investor": "مستثمر",
-    "role-worker": "عامل",
-    "lbl-name": "الاسم الكامل",
-    "lbl-phone": "رقم الهاتف",
-    "lbl-email": "البريد الإلكتروني",
-    "lbl-pass": "كلمة المرور",
-    "lbl-confirm": "تأكيد كلمة المرور",
-    "btn-submit": "إنشاء الحساب",
-    "txt-have-account": "لديك حساب بالفعل؟",
-    "link-signin": "تسجيل الدخول",
-    "hero-title": "أهلاً بك في منصة المستقبل",
-    "feat-1": "✔ إدارة محاصيلك بسهولة",
-    "feat-2": "✔ وصول مباشر للمستهلكين",
-    "feat-3": "✔ أمان وشفافية",
-    "ph-phone": "01xxxxxxxx",
-    "ph-email": "example@mail.com",
-    "err-pass": "كلمتا المرور غير متطابقتين",
-    "welcome": "أهلاً"
-  },
-  en: {
-    "back-btn": "Back",
-    "home-btn": "Home",
-    "dark-mode": "Dark Mode",
-    "light-mode": "Light Mode",
-    "title": "Create Account",
-    "sub": "Enter your details",
-    "role-farmer": "Farmer",
-    "role-investor": "Investor",
-    "role-worker": "Worker",
-    "lbl-name": "Full Name",
-    "lbl-phone": "Phone Number",
-    "lbl-email": "Email",
-    "lbl-pass": "Password",
-    "lbl-confirm": "Confirm Password",
-    "btn-submit": "Create Account",
-    "txt-have-account": "Already have an account?",
-    "link-signin": "Sign In",
-    "hero-title": "Welcome to the Future Platform",
-    "feat-1": "✔ Manage crops easily",
-    "feat-2": "✔ Direct market access",
-    "feat-3": "✔ Secure & Transparent",
-    "ph-phone": "01xxxxxxxx",
-    "ph-email": "example@mail.com",
-    "err-pass": "Passwords do not match",
-    "welcome": "Welcome"
+  // --- Translations ---
+  window.translations = {
+    ar: {
+      "back-btn": "العودة",
+      "home-btn": "الرئيسية",
+      "dark-mode": "ليلي",
+      "light-mode": "نهاري",
+      "title": "إنشاء حساب جديد",
+      "sub": "انضم إلينا وابدأ رحلتك الزراعية",
+      "role-farmer": "فلاح",
+      "role-investor": "مستثمر",
+      "role-worker": "عامل",
+      "lbl-name": "الاسم الكامل",
+      "lbl-phone": "رقم الهاتف",
+      "lbl-email": "البريد الإلكتروني",
+      "lbl-pass": "كلمة المرور",
+      "lbl-confirm": "تأكيد كلمة المرور",
+      "btn-submit": "إنشاء الحساب",
+      "txt-have-account": "لديك حساب بالفعل؟",
+      "link-signin": "تسجيل الدخول",
+      "hero-title": "منصة المستقبل للزراعة الذكية",
+      "feat-1": "إدارة المحاصيل بذكاء",
+      "feat-2": "ربط مباشر بالسوق",
+      "feat-3": "أمان البيانات وشفافيتها",
+      "err-pass": "كلمات المرور غير متطابقة",
+      "err-short-pass": "كلمة المرور قصيرة جداً",
+      "welcome": "أهلاً بك"
+    },
+    en: {
+      "back-btn": "Back",
+      "home-btn": "Home",
+      "dark-mode": "Dark",
+      "light-mode": "Light",
+      "title": "Create Account",
+      "sub": "Join us and start your journey",
+      "role-farmer": "Farmer",
+      "role-investor": "Investor",
+      "role-worker": "Worker",
+      "lbl-name": "Full Name",
+      "lbl-phone": "Phone Number",
+      "lbl-email": "Email Address",
+      "lbl-pass": "Password",
+      "lbl-confirm": "Confirm Password",
+      "btn-submit": "Sign Up",
+      "txt-have-account": "Already have an account?",
+      "link-signin": "Sign In",
+      "hero-title": "Future Smart Farming Platform",
+      "feat-1": "Smart Crop Management",
+      "feat-2": "Direct Market Access",
+      "feat-3": "Data Security & Transparency",
+      "err-pass": "Passwords do not match",
+      "err-short-pass": "Password is too short",
+      "welcome": "Welcome"
+    }
+  };
+
+  // --- Functions ---
+
+  function toggleTheme() {
+    window.isDarkMode = !window.isDarkMode;
+    document.body.classList.toggle("dark");
+    
+    // Update Icon and Text
+    const themeIcon = document.getElementById("themeIcon");
+    const themeText = document.querySelector('[data-i18n="dark-mode"]');
+    
+    if (window.isDarkMode) {
+      themeIcon.className = "fas fa-sun";
+      themeText.innerText = window.translations[window.currentLang]["light-mode"];
+    } else {
+      themeIcon.className = "fas fa-moon";
+      themeText.innerText = window.translations[window.currentLang]["dark-mode"];
+    }
   }
-};
 
-function toggleTheme() {
-  isDarkMode = !isDarkMode;
-  document.body.classList.toggle("dark");
-  updateThemeText();
-}
+  function toggleLanguage() {
+    window.currentLang = window.currentLang === "ar" ? "en" : "ar";
+    const isAr = window.currentLang === "ar";
+    
+    // 1. Update HTML Direction
+    document.documentElement.dir = isAr ? "rtl" : "ltr";
 
-function toggleLanguage() {
-  currentLang = currentLang === "ar" ? "en" : "ar";
-  document.documentElement.dir = currentLang === "ar" ? "rtl" : "ltr";
+    // 2. Update Text Content
+    document.querySelectorAll("[data-i18n]").forEach(el => {
+      const key = el.dataset.i18n;
+      if (window.translations[window.currentLang][key]) {
+        el.innerText = window.translations[window.currentLang][key];
+      }
+    });
 
-  document.querySelectorAll("[data-i18n]").forEach(el => {
-    const key = el.dataset.i18n;
-    if (translations[currentLang][key]) {
-      el.innerText = translations[currentLang][key];
+    // 3. Update Language Button Text
+    document.getElementById("langText").innerText = isAr ? "English" : "العربية";
+
+    // 4. Update Back Arrow Direction (Crucial for UX)
+    const backIcon = document.getElementById("iconBack");
+    backIcon.className = isAr ? "fas fa-arrow-right" : "fas fa-arrow-left";
+
+    // 5. Update Theme Text based on current state
+    const themeText = document.querySelector('[data-i18n="dark-mode"]'); // Selecting by key
+    if(themeText) {
+        const key = window.isDarkMode ? "light-mode" : "dark-mode";
+        themeText.innerText = window.translations[window.currentLang][key];
     }
-  });
+  }
 
-  document.querySelectorAll("[data-i18n-ph]").forEach(el => {
-    const key = el.dataset.i18nPh;
-    if (translations[currentLang][key]) {
-      el.placeholder = translations[currentLang][key];
-    }
-  });
+  // --- Custom Toast Notification (No Alerts) ---
+  function showToast(message, type = "success") {
+    const toast = document.getElementById("toast");
+    const msgSpan = document.getElementById("toastMsg");
+    const icon = toast.querySelector("i");
 
-  document.getElementById("langText").innerText =
-    currentLang === "ar" ? "English" : "العربية";
+    msgSpan.innerText = message;
+    
+    // Reset classes
+    toast.className = "toast"; 
+    icon.className = type === "success" ? "fas fa-check-circle" : "fas fa-exclamation-circle";
+    
+    // Add type class
+    toast.classList.add(type);
 
-  updateThemeText();
-}
+    // Animate In
+    setTimeout(() => toast.classList.add("show"), 10);
 
-function updateThemeText() {
-  const key = isDarkMode ? "light-mode" : "dark-mode";
-  document.getElementById("themeText").innerText =
-    translations[currentLang][key];
-}
+    // Animate Out
+    setTimeout(() => {
+      toast.classList.remove("show");
+    }, 3000);
+  }
 
-function goBackAction() {
-  history.back();
-}
+  // --- Navigation ---
+  function goBack() {
+    history.back();
+  }
 
-function goHome() {
-  window.location.href = "index.html";
-}
+  function goHome() {
+    window.location.href = "index.html";
+  }
 </script>
-
-
 </body>
-
 </html>
