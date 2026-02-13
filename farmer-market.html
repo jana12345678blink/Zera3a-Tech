@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="ar" dir="rtl" data-theme="light">
 
 <head>
@@ -13,25 +13,19 @@
         href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Roboto:wght@400;500;700;900&display=swap"
         rel="stylesheet">
 
-    <!-- مكتبة الأيقونات FontAwesome (مطلوبة لأيقونة القمر والشمس) -->
+    <!-- مكتبة الأيقونات FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         /* ==================== إعدادات الألوان ==================== */
         :root {
             --primary: #1e5959;
-            /* أخضر زراعي غامق */
             --primary-dark: #164545;
-            /* أخضر أغمق */
             --secondary: #d35400;
-            /* لون التربة/المعدات */
             --secondary-dark: #a04000;
             --accent: #c9b896;
-            /* لون ذهبي */
             --background: #f4f7f6;
-            /* خلفية فاتحة جداً */
             --surface: #ffffff;
-            /* لون الكروت */
             --text: #2c3e50;
             --text-muted: #7f8c8d;
             --border: #e5e5e5;
@@ -39,30 +33,22 @@
             --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
-        /* ==================== Dark Mode Variables (تمت إضافتها من الكود الثاني) ==================== */
+        /* ==================== Dark Mode Variables ==================== */
         [data-theme="dark"] {
             --primary: #4db6ac;
-            /* لون مشرق للتباين */
             --primary-dark: #1e5959;
             --secondary: #ffab91;
-            /* لون برتقالي مشرق */
             --secondary-dark: #d35400;
             --accent: #d4af37;
             --background: #121212;
-            /* خلفية داكنة جداً */
             --surface: #1e1e1e;
-            /* سطح الكروت */
             --text: #f5f5f5;
             --text-muted: #b0b0b0;
             --border: #333333;
             --shadow: rgba(0, 0, 0, 0.5);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Cairo', sans-serif;
@@ -72,40 +58,15 @@
             scroll-behavior: smooth;
             padding-bottom: 100px;
             transition: background-color 0.3s, color 0.3s;
-            /* حركة ناعمة عند تغيير الثيم */
         }
 
         /* وضع اللغة الإنجليزية */
-        body.lang-en {
-            font-family: 'Roboto', sans-serif;
-            direction: ltr;
-        }
-
-        body.lang-en .brand-desc {
-            border-right: none;
-            border-left: 5px solid var(--secondary);
-            padding-left: 20px;
-            padding-right: 15px;
-        }
-
-        body.lang-en .header-left {
-            flex-direction: row-reverse;
-        }
-
-        body.lang-en .cart-sidebar {
-            right: auto;
-            left: -450px;
-            box-shadow: 15px 0 40px rgba(0, 0, 0, 0.2);
-        }
-
-        body.lang-en .cart-sidebar.open {
-            left: 0;
-        }
-
-        body.lang-en .cart-float {
-            right: auto;
-            left: 50px;
-        }
+        body.lang-en { font-family: 'Roboto', sans-serif; direction: ltr; }
+        body.lang-en .brand-desc { border-right: none; border-left: 5px solid var(--secondary); padding-left: 20px; padding-right: 15px; }
+        body.lang-en .header-left { flex-direction: row-reverse; }
+        body.lang-en .cart-sidebar { right: auto; left: -450px; box-shadow: 15px 0 40px rgba(0, 0, 0, 0.2); }
+        body.lang-en .cart-sidebar.open { left: 0; }
+        body.lang-en .cart-float { right: auto; left: 50px; }
 
         /* ==================== الهيدر ==================== */
         header {
@@ -124,766 +85,274 @@
         }
 
         header::before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 8px;
+            content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 8px;
             background: linear-gradient(90deg, var(--secondary) 0%, var(--accent) 100%);
             transition: background 0.3s;
         }
 
-        .header-left {
-            display: flex;
-            align-items: center;
-            gap: 30px;
-            animation: slideInLeft 1s ease-out;
-            padding: 30px;
-        }
+        .header-left { display: flex; align-items: center; gap: 30px; animation: slideInLeft 1s ease-out; }
 
-        /* تعديل الصورة لتصبح دائرة وملفوفة */
         .header-rect-img {
-            width: 180px;
-            height: 180px;
-            object-fit: cover;
-            border-radius: 50%;
-            border: 5px solid var(--secondary);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            width: 180px; height: 180px; object-fit: cover; border-radius: 50%;
+            border: 5px solid var(--secondary); box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
             animation: spin 10s linear infinite;
         }
 
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(360deg);
-            }
-        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
         .header-right {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            text-align: right;
-            animation: slideInRight 1s ease-out;
-            flex: 1;
+            display: flex; flex-direction: column; align-items: flex-end; text-align: right;
+            animation: slideInRight 1s ease-out; flex: 1;
         }
 
-        body.lang-en .header-right {
-            align-items: flex-start;
-            text-align: left;
-        }
+        body.lang-en .header-right { align-items: flex-start; text-align: left; }
 
-        .brand-title {
-            font-size: 3.5rem;
-            font-weight: 900;
-            line-height: 1;
-            margin-bottom: 10px;
-            letter-spacing: -1px;
-        }
-
-        .farm {
-            color: var(--surface);
-        }
-
-        .tech {
-            color: var(--accent);
-        }
+        .brand-title { font-size: 3.5rem; font-weight: 900; line-height: 1; margin-bottom: 10px; letter-spacing: -1px; }
+        .farm { color: var(--surface); }
+        .tech { color: var(--accent); }
 
         .brand-desc {
-            font-size: 1.1rem;
-            color: rgba(255, 255, 255, 0.9);
-            max-width: 600px;
-            border-right: 5px solid var(--secondary);
-            padding-right: 20px;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 10px 25px;
-            border-radius: 10px 0 0 10px;
-            margin-bottom: 20px;
-            backdrop-filter: blur(5px);
+            font-size: 1.1rem; color: rgba(255, 255, 255, 0.9); max-width: 600px;
+            border-right: 5px solid var(--secondary); padding-right: 20px;
+            background: rgba(255, 255, 255, 0.05); padding: 10px 25px;
+            border-radius: 10px 0 0 10px; margin-bottom: 20px; backdrop-filter: blur(5px);
         }
 
         .header-tools {
-            display: flex;
-            gap: 15px;
-            width: 100%;
-            max-width: 600px;
-            flex-wrap: wrap;
+            display: flex; gap: 15px; width: 100%; max-width: 600px; flex-wrap: wrap; justify-content: flex-end; align-items: center;
         }
 
         .search-input {
-            flex: 1;
-            padding: 12px 25px;
-            border-radius: 50px;
-            border: none;
-            font-family: inherit;
-            background: rgba(255, 255, 255, 0.15);
-            color: white;
-            backdrop-filter: blur(10px);
-            border: 2px solid transparent;
-            transition: var(--transition);
+            flex: 1; padding: 12px 25px; border-radius: 50px; border: none; font-family: inherit;
+            background: rgba(255, 255, 255, 0.15); color: white; backdrop-filter: blur(10px);
+            border: 2px solid transparent; transition: var(--transition);
         }
 
-        /* تعديل لون الخلفية في البحث عند الوضع الليلي */
-        [data-theme="dark"] .search-input {
-            background: rgba(0, 0, 0, 0.4);
+        [data-theme="dark"] .search-input { background: rgba(0, 0, 0, 0.4); }
+
+        .search-input:focus { outline: none; background: white; color: var(--text); border-color: var(--secondary); }
+
+        .lang-btn, .theme-btn {
+            background: var(--secondary); border: none; color: white; padding: 12px 20px;
+            border-radius: 50px; font-family: inherit; font-weight: bold; cursor: pointer;
+            transition: var(--transition); white-space: nowrap; display: flex; align-items: center;
+            justify-content: center; gap: 8px;
         }
 
-        .search-input:focus {
-            outline: none;
-            background: white;
-            color: var(--text);
-            border-color: var(--secondary);
-        }
-
-        /* أزرار اللغة والثيم */
-        .lang-btn,
-        .theme-btn {
-            background: var(--secondary);
-            border: none;
-            color: white;
-            padding: 12px 20px;
-            border-radius: 50px;
-            font-family: inherit;
-            font-weight: bold;
-            cursor: pointer;
-            transition: var(--transition);
-            white-space: nowrap;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-
-        .lang-btn:hover,
-        .theme-btn:hover {
-            background: var(--secondary-dark);
-            transform: translateY(-3px);
+        .lang-btn:hover, .theme-btn:hover {
+            background: var(--secondary-dark); transform: translateY(-3px);
             box-shadow: 0 5px 15px rgba(211, 84, 0, 0.4);
+        }
+
+        /* زر السهم (الواحد) */
+        .nav-home-btn {
+            display: flex; align-items: center; justify-content: center; width: 50px; height: 50px;
+            background: var(--surface); color: var(--primary-dark); border: 2px solid var(--primary);
+            border-radius: 50%; text-decoration: none; font-weight: bold; font-size: 1.2rem;
+            transition: var(--transition); flex-shrink: 0;
+        }
+        .nav-home-btn:hover { background: #d35400; }
+
+        /* الحاوية المرنة للأزرار */
+        .header-actions {
+            display: flex;
+            gap: 12px;
+            align-items: center;
         }
 
         /* ==================== شريط التنقل ==================== */
         .nav-bar {
-            background-color: var(--surface);
-            padding: 10px 5%;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            box-shadow: 0 4px 15px var(--shadow);
-            position: sticky;
-            top: 0;
-            z-index: 40;
-            margin-bottom: 40px;
-            transition: background-color 0.3s;
+            background-color: var(--surface); padding: 10px 5%; display: flex;
+            justify-content: center; gap: 20px; box-shadow: 0 4px 15px var(--shadow);
+            position: sticky; top: 0; z-index: 40; margin-bottom: 40px; transition: background-color 0.3s;
         }
 
         .nav-btn {
-            background: transparent;
-            border: 2px solid transparent;
-            padding: 10px 30px;
-            border-radius: 50px;
-            font-family: inherit;
-            font-weight: 700;
-            font-size: 1rem;
-            color: var(--text-muted);
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            background: transparent; border: 2px solid transparent; padding: 10px 30px;
+            border-radius: 50px; font-family: inherit; font-weight: 700; font-size: 1rem;
+            color: var(--text-muted); cursor: pointer; transition: var(--transition);
+            display: flex; align-items: center; gap: 8px;
         }
 
-        .nav-btn:hover {
-            color: var(--primary);
-            background: rgba(30, 89, 89, 0.05);
-        }
-
-        .nav-btn.active {
-            background: var(--primary);
-            color: var(--surface);
-            box-shadow: 0 5px 15px rgba(30, 89, 89, 0.25);
-        }
+        .nav-btn:hover { color: var(--primary); background: rgba(30, 89, 89, 0.05); }
+        .nav-btn.active { background: var(--primary); color: var(--surface); box-shadow: 0 5px 15px rgba(30, 89, 89, 0.25); }
 
         /* ==================== المحتوى ==================== */
-        main {
-            max-width: 1600px;
-            margin: 0 auto;
-            padding: 0 5%;
-            min-height: 60vh;
-        }
+        main { max-width: 1600px; margin: 0 auto; padding: 0 5%; min-height: 60vh; }
+        .section-container { display: none; animation: fadeIn 0.5s ease-out; }
+        .section-container.active { display: block; }
+        .section-header { text-align: center; margin-bottom: 50px; }
+        .section-icon { font-size: 3.5rem; margin-bottom: 15px; display: inline-block; animation: bounce 2s infinite; }
+        .section-title { font-size: 2.5rem; font-weight: 900; color: var(--primary); text-transform: uppercase; letter-spacing: 1px; }
 
-        .section-container {
-            display: none;
-            animation: fadeIn 0.5s ease-out;
-        }
-
-        .section-container.active {
-            display: block;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-
-        .section-icon {
-            font-size: 3.5rem;
-            margin-bottom: 15px;
-            display: inline-block;
-            animation: bounce 2s infinite;
-        }
-
-        .section-title {
-            font-size: 2.5rem;
-            font-weight: 900;
-            color: var(--primary);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
+        /* Desktop Grid */
         .products-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 35px;
             padding-bottom: 50px;
         }
-/* Footer */
-    .site-footer {
-      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-      color: #fff;
-      padding: 4rem 0 1.5rem;
-    }
 
-    .footer-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 2.5rem;
-    }
+        /* ==================== Footer ==================== */
+        .site-footer { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: #fff; padding: 4rem 0 1.5rem; }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2.5rem; }
+        .footer-brand img { height: 55px; margin-bottom: 1rem; filter: brightness(0) invert(1); }
+        .footer-brand p { font-size: 0.95rem; line-height: 1.7; color: rgba(255,255,255,0.85); }
+        .site-footer h4 { font-size: 1.1rem; margin-bottom: 1rem; }
+        .footer-links ul { list-style: none; padding: 0; }
+        .footer-links li { margin-bottom: 0.6rem; }
+        .footer-links a { text-decoration: none; color: rgba(255,255,255,0.85); transition: 0.3s; }
+        .footer-links a:hover { color: var(--secondary); padding-left: 5px; }
+        .footer-contact p { font-size: 0.95rem; margin-bottom: 0.6rem; color: rgba(255,255,255,0.85); }
+        .footer-social { margin-top: 1rem; display: flex; gap: 12px; }
+        .footer-social a { width: 38px; height: 38px; border-radius: 50%; background: rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 18px; color: #fff; transition: 0.3s; }
+        .footer-social a:hover { background: var(--secondary); transform: translateY(-3px); }
+        .footer-bottom { text-align: center; margin-top: 3rem; padding-top: 1.2rem; border-top: 1px solid rgba(255,255,255,0.15); font-size: 0.9rem; color: rgba(255,255,255,0.75); }
 
-    .footer-brand img {
-      height: 55px;
-      margin-bottom: 1rem;
-      filter: brightness(0) invert(1);
-    }
-
-    .footer-brand p {
-      font-size: 0.95rem;
-      line-height: 1.7;
-      color: rgba(255,255,255,0.85);
-    }
-
-    .site-footer h4 {
-      font-size: 1.1rem;
-      margin-bottom: 1rem;
-    }
-
-    .footer-links ul {
-      list-style: none;
-      padding: 0;
-    }
-
-    .footer-links li {
-      margin-bottom: 0.6rem;
-    }
-
-    .footer-links a {
-      text-decoration: none;
-      color: rgba(255,255,255,0.85);
-      transition: 0.3s;
-    }
-
-    .footer-links a:hover {
-      color: var(--secondary);
-      padding-left: 5px;
-    }
-
-    .footer-contact p {
-      font-size: 0.95rem;
-      margin-bottom: 0.6rem;
-      color: rgba(255,255,255,0.85);
-    }
-
-    .footer-social {
-      margin-top: 1rem;
-      display: flex;
-      gap: 12px;
-    }
-
-    .footer-social a {
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.15);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-decoration: none;
-      font-size: 18px;
-      color: #fff;
-      transition: 0.3s;
-    }
-
-    .footer-social a:hover {
-      background: var(--secondary);
-      transform: translateY(-3px);
-    }
-
-    .footer-bottom {
-      text-align: center;
-      margin-top: 3rem;
-      padding-top: 1.2rem;
-      border-top: 1px solid rgba(255,255,255,0.15);
-      font-size: 0.9rem;
-      color: rgba(255,255,255,0.75);
-    }
         /* ==================== بطاقة المنتج ==================== */
-        .card {
-            background: var(--surface);
-            border-radius: 24px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px var(--shadow);
-            transition: var(--transition);
-            opacity: 0;
-            transform: translateY(30px);
-            border: 1px solid var(--border);
-            /* استخدام متغير الحدود للوضع الليلي */
-            display: flex;
-            flex-direction: column;
-        }
-
-        .card.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
-            border-color: var(--secondary);
-        }
-
-        .card-img-box {
-            height: 220px;
-            overflow: hidden;
-            position: relative;
-            background: #f0f0f0;
-        }
-
-        .card-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.6s ease;
-        }
-
-        .card:hover .card-img {
-            transform: scale(1.1);
-        }
-
-        .card-body {
-            padding: 20px;
-            text-align: center;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .card-title {
-            font-size: 1.3rem;
-            font-weight: 800;
-            color: var(--primary-dark);
-            /* لون النص يتأثر بالمتغيرات */
-            margin-bottom: 10px;
-        }
-
-        .card-price {
-            font-size: 1.6rem;
-            font-weight: 900;
-            color: var(--secondary);
-            margin-bottom: 20px;
-            display: block;
-        }
-
-        .add-btn {
-            width: 100%;
-            padding: 12px;
-            background: var(--primary);
-            color: var(--surface);
-            border: none;
-            border-radius: 50px;
-            font-weight: bold;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: var(--transition);
-            font-family: inherit;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .add-btn:hover {
-            background: var(--primary-dark);
-            transform: translateY(-2px);
-        }
+        .card { background: var(--surface); border-radius: 24px; overflow: hidden; box-shadow: 0 5px 15px var(--shadow); transition: var(--transition); opacity: 0; transform: translateY(30px); border: 1px solid var(--border); display: flex; flex-direction: column; }
+        .card.visible { opacity: 1; transform: translateY(0); }
+        .card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12); border-color: var(--secondary); }
+        .card-img-box { height: 220px; overflow: hidden; position: relative; background: #f0f0f0; }
+        .card-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+        .card:hover .card-img { transform: scale(1.1); }
+        .card-body { padding: 20px; text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
+        .card-title { font-size: 1.3rem; font-weight: 800; color: var(--primary-dark); margin-bottom: 10px; }
+        .card-price { font-size: 1.6rem; font-weight: 900; color: var(--secondary); margin-bottom: 20px; display: block; }
+        .add-btn { width: 100%; padding: 12px; background: var(--primary); color: var(--surface); border: none; border-radius: 50px; font-weight: bold; font-size: 1rem; cursor: pointer; transition: var(--transition); font-family: inherit; position: relative; overflow: hidden; }
+        .add-btn:hover { background: var(--primary-dark); transform: translateY(-2px); }
 
         /* ==================== السلة ==================== */
-        .cart-float {
-            position: fixed;
-            bottom: 50px;
-            right: 50px;
-            width: 75px;
-            height: 75px;
-            background: var(--secondary);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            color: var(--surface);
-            box-shadow: 0 10px 25px rgba(211, 84, 0, 0.5);
-            cursor: pointer;
-            z-index: 200;
-            transition: var(--transition);
-            border: 4px solid var(--surface);
-        }
-
-        .cart-float:hover {
-            transform: rotate(15deg) scale(1.1);
-        }
-
-        .cart-badge {
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            background: var(--primary-dark);
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 0.9rem;
-            color: white;
-            border: 2px solid var(--surface);
-            animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        /* ==================== القائمة الجانبية ==================== */
-        .cart-sidebar {
-            position: fixed;
-            top: 0;
-            right: -450px;
-            width: 400px;
-            max-width: 90vw;
-            height: 100vh;
-            background: var(--surface);
-            z-index: 201;
-            box-shadow: -10px 0 40px rgba(0, 0, 0, 0.1);
-            transition: 0.5s cubic-bezier(0.77, 0, 0.175, 1);
-            display: flex;
-            flex-direction: column;
-            padding: 25px;
-        }
-
-        .cart-sidebar.open {
-            right: 0;
-        }
-
-        .cart-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid var(--border);
-        }
-
-        .cart-header h2 {
-            color: var(--primary);
-            font-size: 1.5rem;
-        }
-
-        .close-cart {
-            background: #f5f5f5;
-            border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .close-cart:hover {
-            background: #e0e0e0;
-        }
-
-        .cart-items-container {
-            flex: 1;
-            overflow-y: auto;
-            scrollbar-width: thin;
-            scrollbar-color: var(--primary) #f0f0f0;
-        }
-
-        .cart-items-container::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        .cart-items-container::-webkit-scrollbar-track {
-            background: #f0f0f0;
-        }
-
-        .cart-items-container::-webkit-scrollbar-thumb {
-            background-color: var(--primary);
-            border-radius: 20px;
-        }
-
-        .cart-item {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 15px;
-            background: var(--background);
-            /* يتغير مع الوضع الليلي */
-            padding: 10px;
-            border-radius: 15px;
-            align-items: center;
-            animation: slideInRight 0.3s ease;
-            border: 1px solid var(--border);
-        }
-
-        .cart-item img {
-            width: 60px;
-            height: 60px;
-            border-radius: 10px;
-            object-fit: cover;
-        }
-
-        .cart-item-details {
-            flex: 1;
-        }
-
-        .cart-item-title {
-            font-weight: bold;
-            font-size: 0.95rem;
-            margin-bottom: 4px;
-        }
-
-        .cart-item-price {
-            color: var(--secondary);
-            font-weight: bold;
-        }
-
-        .remove-btn {
-            color: #ff6b6b;
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-size: 1.2rem;
-            padding: 5px;
-            transition: 0.2s;
-        }
-
-        .remove-btn:hover {
-            color: #d63031;
-            transform: scale(1.2);
-        }
-
-        .cart-footer {
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 2px solid var(--border);
-        }
-
-        .cart-total-row {
-            display: flex;
-            justify-content: space-between;
-            font-size: 1.4rem;
-            font-weight: 900;
-            margin-bottom: 20px;
-            color: var(--primary-dark);
-        }
-
-        .checkout-btn {
-            width: 100%;
-            padding: 16px;
-            background: var(--secondary);
-            color: white;
-            border: none;
-            border-radius: 50px;
-            font-weight: bold;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: 0.3s;
-            box-shadow: 0 5px 15px rgba(211, 84, 0, 0.3);
-        }
-
-        .checkout-btn:hover {
-            background: var(--secondary-dark);
-            transform: translateY(-3px);
-        }
-
-        .cart-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(30, 89, 89, 0.6);
-            backdrop-filter: blur(4px);
-            z-index: 200;
-            opacity: 0;
-            visibility: hidden;
-            transition: 0.3s;
-        }
-
-        .cart-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
+        .cart-float { position: fixed; bottom: 50px; right: 50px; width: 75px; height: 75px; background: var(--secondary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; color: var(--surface); box-shadow: 0 10px 25px rgba(211, 84, 0, 0.5); cursor: pointer; z-index: 200; transition: var(--transition); border: 4px solid var(--surface); }
+        .cart-float:hover { transform: rotate(15deg) scale(1.1); }
+        .cart-badge { position: absolute; top: -5px; right: -5px; background: var(--primary-dark); width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.9rem; color: white; border: 2px solid var(--surface); animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .cart-sidebar { position: fixed; top: 0; right: -450px; width: 400px; max-width: 90vw; height: 100vh; background: var(--surface); z-index: 201; box-shadow: -10px 0 40px rgba(0, 0, 0, 0.1); transition: 0.5s cubic-bezier(0.77, 0, 0.175, 1); display: flex; flex-direction: column; padding: 25px; }
+        .cart-sidebar.open { right: 0; }
+        .cart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 2px solid var(--border); }
+        .cart-header h2 { color: var(--primary); font-size: 1.5rem; }
+        .close-cart { background: #f5f5f5; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 1.2rem; cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center; }
+        .close-cart:hover { background: #e0e0e0; }
+        .cart-items-container { flex: 1; overflow-y: auto; scrollbar-width: thin; scrollbar-color: var(--primary) #f0f0f0; }
+        .cart-items-container::-webkit-scrollbar { width: 6px; }
+        .cart-items-container::-webkit-scrollbar-track { background: #f0f0f0; }
+        .cart-items-container::-webkit-scrollbar-thumb { background-color: var(--primary); border-radius: 20px; }
+        .cart-item { display: flex; gap: 15px; margin-bottom: 15px; background: var(--background); padding: 10px; border-radius: 15px; align-items: center; animation: slideInRight 0.3s ease; border: 1px solid var(--border); }
+        .cart-item img { width: 60px; height: 60px; border-radius: 10px; object-fit: cover; }
+        .cart-item-details { flex: 1; }
+        .cart-item-title { font-weight: bold; font-size: 0.95rem; margin-bottom: 4px; }
+        .cart-item-price { color: var(--secondary); font-weight: bold; }
+        .remove-btn { color: #ff6b6b; background: none; border: none; cursor: pointer; font-size: 1.2rem; padding: 5px; transition: 0.2s; }
+        .remove-btn:hover { color: #d63031; transform: scale(1.2); }
+        .cart-footer { margin-top: 20px; padding-top: 20px; border-top: 2px solid var(--border); }
+        .cart-total-row { display: flex; justify-content: space-between; font-size: 1.4rem; font-weight: 900; margin-bottom: 20px; color: var(--primary-dark); }
+        .checkout-btn { width: 100%; padding: 16px; background: var(--secondary); color: white; border: none; border-radius: 50px; font-weight: bold; font-size: 1.1rem; cursor: pointer; transition: 0.3s; box-shadow: 0 5px 15px rgba(211, 84, 0, 0.3); }
+        .checkout-btn:hover { background: var(--secondary-dark); transform: translateY(-3px); }
+        .cart-overlay { position: fixed; inset: 0; background: rgba(30, 89, 89, 0.6); backdrop-filter: blur(4px); z-index: 200; opacity: 0; visibility: hidden; transition: 0.3s; }
+        .cart-overlay.active { opacity: 1; visibility: visible; }
 
         /* ==================== أنيميشن ==================== */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideInLeft { from { transform: translateX(-50px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        @keyframes slideInRight { from { transform: translateX(50px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        @keyframes popIn { from { transform: scale(0); } to { transform: scale(1); } }
 
-            to {
-                opacity: 1;
-            }
-        }
-
-        @keyframes slideInLeft {
-            from {
-                transform: translateX(-50px);
-                opacity: 0;
-            }
-
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-
-        @keyframes slideInRight {
-            from {
-                transform: translateX(50px);
-                opacity: 0;
-            }
-
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-
-        @keyframes bounce {
-
-            0%,
-            100% {
-                transform: translateY(0);
-            }
-
-            50% {
-                transform: translateY(-10px);
-            }
-        }
-
-        @keyframes popIn {
-            from {
-                transform: scale(0);
-            }
-
-            to {
-                transform: scale(1);
-            }
-        }
-
-        /* ==================== Responsive ==================== */
+        /* ==================== Responsive (Mobile) ==================== */
         @media (max-width: 900px) {
+            /* 1. Header Layout */
             header {
                 flex-direction: column;
                 align-items: center;
                 text-align: center;
+                padding: 2rem 5%;
             }
 
             .header-left {
                 flex-direction: column;
                 gap: 15px;
+                margin-bottom: 20px;
+                justify-content: center;
+                /* إخفاء السهم هنا لأنه سينتقل للأدوات */
             }
+            .header-left .nav-home-btn { display: none; }
 
             .header-right {
-                align-items: center !important;
                 width: 100%;
+                align-items: center !important;
+                text-align: center !important;
             }
 
+            .brand-title { font-size: 2.5rem; }
             .brand-desc {
                 border: none !important;
-                padding: 0;
                 background: transparent;
+                padding: 0;
                 width: 100%;
+                margin-bottom: 20px;
+                font-size: 1rem;
             }
 
+            /* 2. Header Tools Layout (Search Top, Buttons Bottom) */
             .header-tools {
-                flex-direction: column;
+                flex-direction: column; /* رأسي: البحث فوق الأزرار */
                 width: 100%;
                 align-items: center;
+                justify-content: center;
+                gap: 15px;
             }
 
-            .nav-bar {
-                overflow-x: auto;
-                justify-content: flex-start;
-                white-space: nowrap;
-                -webkit-overflow-scrolling: touch;
-            }
-
-            .nav-btn {
-                flex-shrink: 0;
-            }
-
-            .cart-float {
-                bottom: 20px;
-                right: 20px;
-                width: 60px;
-                height: 60px;
-                font-size: 1.5rem;
-            }
-
-            body.lang-en .cart-float {
-                left: 20px;
-            }
-
-            .cart-sidebar {
+            /* البحث يأخذ كامل العرض */
+            .search-input {
                 width: 100%;
-                right: -100%;
+                flex: none;
             }
 
-            body.lang-en .cart-sidebar {
-                left: -100%;
+            /* صف الأزرار (أفقي) */
+            .header-actions {
+                width: 100%;
+                justify-content: center; /* توسيط الأزرار */
             }
-        }
 
-        .nav-home-btn {
-            display: flex;  
-            align-items: center;
-            justify-content: center;
-            width: 50px;
-            height: 50px;
-            background: var(--surface);
-            color: var(--primary-dark);
-            border: 2px solid var(--primary);
-            border-radius: 50%;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 1.2rem;
-            transition: var(--transition);
-        }
+            /* إظهار السهم هنا */
+            .header-actions .nav-home-btn { display: flex !important; }
 
-        .nav-home-btn:hover {
-            background: #d35400;
+            /* الأزرار */
+            .nav-home-btn { width: 45px; height: 45px; font-size: 1rem; }
+            .lang-btn, .theme-btn { padding: 8px 16px; font-size: 0.85rem; }
+
+            /* 3. Nav Bar */
+            .nav-bar {
+                justify-content: center; gap: 8px; flex-wrap: wrap; overflow-x: visible;
+                white-space: normal; padding: 10px 2%;
+            }
+            .nav-btn { padding: 6px 12px; font-size: 0.8rem; border-radius: 20px; flex: 1 0 auto; min-width: calc(50% - 8px); justify-content: center; }
+            
+            /* 4. Grid Adjustments */
+            .products-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
+            .card-img-box { height: 140px; }
+            .card-title { font-size: 0.9rem; margin-bottom: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+            .card-price { font-size: 1.1rem; margin-bottom: 10px; }
+            .add-btn { padding: 8px; font-size: 0.8rem; }
+
+            .cart-float { bottom: 20px; right: 20px; width: 60px; height: 60px; font-size: 1.5rem; }
+            body.lang-en .cart-float { left: 20px; }
+            .cart-sidebar { width: 100%; right: -100%; }
+            body.lang-en .cart-sidebar { left: -100%; }
+
+            /* 5. Footer */
+            .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+            .footer-brand { grid-column: 1 / -1; text-align: center; }
+            .footer-brand img { margin: 0 auto 1rem auto; }
+            .site-footer h4 { text-align: center; font-size: 1.2rem; margin-bottom: 1.2rem; }
+            .footer-contact { text-align: center; }
+            .footer-social { justify-content: center; }
+            .footer-links { text-align: center; }
+        }
+        
+        @media (max-width: 480px) {
+            .footer-grid { grid-template-columns: 1fr; }
+            .products-grid { grid-template-columns: 1fr; }
+            .nav-btn { min-width: 45%; }
         }
     </style>
 </head>
@@ -892,14 +361,14 @@
 
     <!-- الهيدر -->
     <header>
-
         <div class="header-left">
+            <img src="./smart/WhatsApp Image 2026-01-24 at 4.35.28 AM.jpeg" alt="Farm Tech" class="header-rect-img"
+                onerror="this.src='https://picsum.photos/seed/farm/200/200'">
+            
+            <!-- زر السهم الواحد (يظهر في الكمبيوتر بجانب الشعار) -->
             <a href="./farmer-ar.html" class="nav-home-btn">
                 <span>←</span>
             </a>
-            <!-- ملاحظة: تأكد من وجود الصور في المسارات المحددة -->
-            <img src="./smart/WhatsApp Image 2026-01-24 at 4.35.28 AM.jpeg" alt="Farm Tech" class="header-rect-img"
-                onerror="this.src='https://picsum.photos/seed/farm/200/200'">
         </div>
 
         <div class="header-right">
@@ -907,18 +376,27 @@
                 <span class="farm">Zera3a-</span> <span class="tech">Tech</span>
             </div>
 
-
             <div class="brand-desc" data-key="slogan">منصة متكاملة لخدمات المزارع، توفر أفضل أنواع البذور، الأسمده،
                 وأدوات الزراعة الحديثة</div>
 
+            <!-- أدوات الهيدر -->
             <div class="header-tools">
+                <!-- البحث -->
                 <input type="text" class="search-input" id="searchInput" placeholder="بحث عن منتج..."
                     data-ph-key="search">
-                <button class="lang-btn" id="langBtn">English</button>
-                <!-- زر الوضع الليلي (من الكود الثاني) -->
-                <button class="theme-btn" id="themeBtn" aria-label="Toggle Theme">
-                    <i class="fa-solid fa-moon"></i>
-                </button>
+                
+                <!-- مجموعة الأزرار (في الموبايل ينتقل السهم ليكون هنا) -->
+                <div class="header-actions">
+                    <!-- نفس زر السهم (يتم إخفاؤه في الشعار وإظهاره هنا في الموبايل عبر CSS) -->
+                    <a href="./farmer-ar.html" class="nav-home-btn" style="display: none;">
+                        <span>←</span>
+                    </a>
+                    
+                    <button class="lang-btn" id="langBtn">English</button>
+                    <button class="theme-btn" id="themeBtn" aria-label="Toggle Theme">
+                        <i class="fa-solid fa-moon"></i>
+                    </button>
+                </div>
             </div>
         </div>
     </header>
@@ -1001,7 +479,7 @@
     </aside>
 
     <script>
-        // بيانات 45 منتج (تم دمجها من الكود الأول والمحدثة)
+        // بيانات المنتجات
         const products = [
             // بذور (Seeds)
             { id: 1, nameAr: "بذور طماطم هجينة", nameEn: "Hybrid Tomato Seeds", price: 150.00, cat: "seeds", img: "./smart/H8fd06691dbf14a61ab34d16a6aca16d6z.webp" },
@@ -1048,17 +526,14 @@
 
         const translations = {
             ar: {
-                home: "الرئيسية",
-
-                slogan: "منصة متكاملة لخدمات المزارع، توفر أفضل أنواع البذور، الأسمده، وأدوات الزراعة الحديثة",
+                home: "الرئيسية", slogan: "منصة متكاملة لخدمات المزارع، توفر أفضل أنواع البذور، الأسمده، وأدوات الزراعة الحديثة",
                 all: "الكل", seeds: "بذور", fertilizers: "أسمده", tools: "أدوات مزارع",
                 allTitle: "كل المنتجات", seedsTitle: "بذور زراعية مميزة", fertilizersTitle: "أسمده ومحسنات تربة", toolsTitle: "أدوات ومعدات المزارع",
                 search: "بحث عن منتج...", cartTitle: "السلة", total: "الإجمالي:", checkout: "إتمام الشراء",
                 empty: "السلة فارغة", add: "أضف للسلة"
             },
             en: {
-                home: "Home",
-                slogan: "Integrated platform for farmer services, providing best seeds, fertilizers, and modern tools",
+                home: "Home", slogan: "Integrated platform for farmer services, providing best seeds, fertilizers, and modern tools",
                 all: "All", seeds: "Seeds", fertilizers: "Fertilizers", tools: "Farm Tools",
                 allTitle: "All Products", seedsTitle: "Featured Agricultural Seeds", fertilizersTitle: "Fertilizers & Soil Amendments", toolsTitle: "Farm Tools & Equipment",
                 search: "Search product...", cartTitle: "Cart", total: "Total:", checkout: "Checkout",
@@ -1066,7 +541,6 @@
             }
         };
 
-        // تم تحديث الـ state ليشمل الـ theme (الوضع الليلي)
         let state = { lang: 'ar', theme: 'light', cart: [] };
 
         function t(key) { return translations[state.lang][key]; }
@@ -1074,10 +548,7 @@
         function createCard(p) {
             const name = state.lang === 'ar' ? p.nameAr : p.nameEn;
             const btnText = t('add');
-
-            // إضافة fallback للصور إذا لم يتم العثور عليها
             const imgUrl = p.img || "https://picsum.photos/seed/plant/300/300";
-
             return `
                 <div class="card">
                     <div class="card-img-box">
@@ -1098,30 +569,20 @@
             document.documentElement.lang = state.lang;
             document.documentElement.dir = state.lang === 'ar' ? 'rtl' : 'ltr';
             document.body.className = state.lang === 'ar' ? '' : 'lang-en';
-
             document.getElementById('langBtn').textContent = state.lang === 'ar' ? 'English' : 'عربي';
             document.getElementById('searchInput').placeholder = t('search');
             document.querySelectorAll('[data-key]').forEach(el => {
                 const key = el.getAttribute('data-key');
                 if (translations[state.lang][key]) el.textContent = translations[state.lang][key];
             });
-
-            // تطبيق الوضع الليلي (Dark Mode Logic)
             document.documentElement.setAttribute('data-theme', state.theme);
             const themeIcon = document.querySelector('#themeBtn i');
-            if (state.theme === 'light') {
-                themeIcon.className = 'fa-solid fa-moon';
-            } else {
-                themeIcon.className = 'fa-solid fa-sun';
-            }
-
+            themeIcon.className = state.theme === 'light' ? 'fa-solid fa-moon' : 'fa-solid fa-sun';
             const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-
             ['all', 'seeds', 'fertilizers', 'tools'].forEach(cat => {
                 const container = document.getElementById(`grid-${cat}`);
                 if (container) {
                     container.innerHTML = '';
-
                     products.filter(p => {
                         const name = state.lang === 'ar' ? p.nameAr : p.nameEn;
                         const matchesCat = cat === 'all' || p.cat === cat;
@@ -1130,13 +591,9 @@
                     }).forEach(p => {
                         container.innerHTML += createCard(p);
                     });
-
-                    if (cat === document.querySelector('.section-container.active').id) {
-                        checkScroll();
-                    }
+                    if (cat === document.querySelector('.section-container.active').id) checkScroll();
                 }
             });
-
             renderCart();
         }
 
@@ -1144,12 +601,8 @@
             const container = document.getElementById('cartItems');
             container.innerHTML = '';
             let total = 0;
-
             if (state.cart.length === 0) {
-                container.innerHTML = `<div style="text-align:center; padding:40px; color:var(--text-muted);">
-                    <div style="font-size:3rem; margin-bottom:10px;">🛒</div>
-                    ${t('empty')}
-                </div>`;
+                container.innerHTML = `<div style="text-align:center; padding:40px; color:var(--text-muted);"><div style="font-size:3rem; margin-bottom:10px;">🛒</div>${t('empty')}</div>`;
             } else {
                 state.cart.forEach((item, idx) => {
                     const p = products.find(x => x.id === item.id);
@@ -1164,14 +617,11 @@
                                     <div class="cart-item-title">${name}</div>
                                     <div class="cart-item-price">${p.price.toFixed(2)} EGP</div>
                                 </div>
-                                <button class="remove-btn" onclick="removeFromCart(${idx})" aria-label="Remove item">
-                                    &times;
-                                </button>
+                                <button class="remove-btn" onclick="removeFromCart(${idx})" aria-label="Remove item">&times;</button>
                             </div>`;
                     }
                 });
             }
-
             document.getElementById('cartTotal').textContent = total.toFixed(2) + ' EGP';
             document.getElementById('cartCount').textContent = state.cart.length;
         }
@@ -1179,122 +629,75 @@
         window.showSection = function (id, btn) {
             document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
             if (btn) btn.classList.add('active');
-
             document.querySelectorAll('.section-container').forEach(sec => sec.classList.remove('active'));
             const section = document.getElementById(id);
-            if (section) {
-                section.classList.add('active');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-                setTimeout(checkScroll, 100);
-            }
+            if (section) { section.classList.add('active'); window.scrollTo({ top: 0, behavior: 'smooth' }); setTimeout(checkScroll, 100); }
         };
 
         window.addToCart = function (id) {
-            state.cart.push({ id });
-            renderCart();
-            const btn = document.querySelector('.cart-float');
-            btn.style.transform = 'scale(1.2) rotate(-10deg)';
-            setTimeout(() => { btn.style.transform = ''; }, 300);
+            state.cart.push({ id }); renderCart();
+            const btn = document.querySelector('.cart-float'); btn.style.transform = 'scale(1.2) rotate(-10deg)'; setTimeout(() => { btn.style.transform = ''; }, 300);
         };
 
-        window.removeFromCart = function (idx) {
-            state.cart.splice(idx, 1);
-            renderCart();
-        };
-
+        window.removeFromCart = function (idx) { state.cart.splice(idx, 1); renderCart(); };
         window.toggleCart = function () {
-            const sidebar = document.getElementById('cartSidebar');
-            const overlay = document.getElementById('cartOverlay');
-            sidebar.classList.toggle('open');
-            overlay.classList.toggle('active');
+            const sidebar = document.getElementById('cartSidebar'); const overlay = document.getElementById('cartOverlay');
+            sidebar.classList.toggle('open'); overlay.classList.toggle('active');
         };
 
         window.checkout = function () {
             if (state.cart.length === 0) return;
             alert(state.lang === 'ar' ? 'شكراً لك! سيتم معالجة طلبك قريباً.' : 'Thank you! Your order will be processed shortly.');
-            state.cart = [];
-            renderCart();
-            toggleCart();
+            state.cart = []; renderCart(); toggleCart();
         };
 
-        document.getElementById('langBtn').addEventListener('click', () => {
-            state.lang = state.lang === 'ar' ? 'en' : 'ar';
-            render();
-        });
-
-        // وظيفة زر تغيير الثيم (Dark/Light)
-        document.getElementById('themeBtn').addEventListener('click', () => {
-            state.theme = state.theme === 'light' ? 'dark' : 'light';
-            render();
-        });
-
+        document.getElementById('langBtn').addEventListener('click', () => { state.lang = state.lang === 'ar' ? 'en' : 'ar'; render(); });
+        document.getElementById('themeBtn').addEventListener('click', () => { state.theme = state.theme === 'light' ? 'dark' : 'light'; render(); });
         document.getElementById('searchInput').addEventListener('input', render);
 
         function checkScroll() {
             const cards = document.querySelectorAll('.card:not(.visible)');
             const triggerBottom = window.innerHeight * 0.85;
-            cards.forEach(card => {
-                const cardTop = card.getBoundingClientRect().top;
-                if (cardTop < triggerBottom) {
-                    card.classList.add('visible');
-                }
-            });
+            cards.forEach(card => { const cardTop = card.getBoundingClientRect().top; if (cardTop < triggerBottom) card.classList.add('visible'); });
         }
-
         window.addEventListener('scroll', checkScroll);
         render();
     </script>
     <footer class="site-footer">
-  <div class="container footer-grid">
-
-    <div class="footer-brand">
-      <img src="./smart_farm_no_bg-removebg-preview.png" alt="Zera3a-Tech Logo">
-      <p>
-        Zera3a-Tech is a smart agricultural ecosystem connecting farmers, buyers,
-        investors, and suppliers through modern technology.
-      </p>
-    </div>
-
-    <div class="footer-links">
-      <h4>Platform</h4>
-      <ul>
-        <li><a href="#">Marketplace</a></li>
-        <li><a href="#">Crop Tracking</a></li>
-        <li><a href="#">Cost Calculator</a></li>
-        <li><a href="#">Community</a></li>
-      </ul>
-    </div>
-
-    <div class="footer-links">
-      <h4>Resources</h4>
-      <ul>
-        <li><a href="#">Farming Tips</a></li>
-        <li><a href="#">Livestock Guide</a></li>
-        <li><a href="#">Expert Advice</a></li>
-        <li><a href="#">Investment Opportunities</a></li>
-      </ul>
-    </div>
-
-    <div class="footer-contact">
-      <h4>Contact</h4>
-      <p>📍 Cairo, Egypt</p>
-      <p>📞 +20 123 456 7890</p>
-      <p>📧 support@zera3a-tech.com</p>
-
-      <div class="footer-social">
-        <a href="#">🌐</a>
-        <a href="#">📘</a>
-        <a href="#">🐦</a>
-        <a href="#">📸</a>
-      </div>
-    </div>
-
-  </div>
-
-  <div class="footer-bottom">
-    © 2025 Zera3a-Tech. All rights reserved.
-  </div>
-</footer>
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <img src="./smart_farm_no_bg-removebg-preview.png" alt="Zera3a-Tech Logo">
+                <p>Zera3a-Tech is a smart agricultural ecosystem connecting farmers, buyers, investors, and suppliers through modern technology.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Platform</h4>
+                <ul>
+                    <li><a href="#">Marketplace</a></li>
+                    <li><a href="#">Crop Tracking</a></li>
+                    <li><a href="#">Cost Calculator</a></li>
+                    <li><a href="#">Community</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="#">Farming Tips</a></li>
+                    <li><a href="#">Livestock Guide</a></li>
+                    <li><a href="#">Expert Advice</a></li>
+                    <li><a href="#">Investment Opportunities</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h4>Contact</h4>
+                <p>📍 Cairo, Egypt</p>
+                <p>📞 +20 123 456 7890</p>
+                <p>📧 support@zera3a-tech.com</p>
+                <div class="footer-social">
+                    <a href="#">🌐</a><a href="#">📘</a><a href="#">🐦</a><a href="#">📸</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">© 2025 Zera3a-Tech. All rights reserved.</div>
+    </footer>
 </body>
-
 </html>
