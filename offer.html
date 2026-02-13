@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zera3a-tech | بوابة المزارع الذكي</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css  ">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --primary: #1e5959;
@@ -20,9 +21,9 @@
             --shadow: rgba(0, 0, 0, 0.1);
             --grad-primary: linear-gradient(135deg, #1e5959 0%, #3a8e8e 100%);
             --grad-orange: linear-gradient(135deg, #e67e3a 0%, #ff9d5c 100%);
+            --radius-pill: 50px;
         }
 
-        /* Dark mode overrides */
         .dark-mode {
             --background: #121212;
             --surface: #1e1e1e;
@@ -32,836 +33,794 @@
             --shadow: rgba(0, 0, 0, 0.3);
         }
 
-        /* --- Animations --- */
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes zoomIn {
-            from { opacity: 0; transform: scale(0.9); }
-            to { opacity: 1; transform: scale(1); }
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: var(--background); color: var(--text); line-height: 1.6; transition: background-color 0.3s, color 0.3s; }
-
-        .main-header { 
-            padding: 15px 5%; background: rgba(255, 255, 255, 0.95); 
-            backdrop-filter: blur(10px); border-bottom: 2px solid var(--border); 
-            position: sticky; top: 0; z-index: 1000;
-            display: flex; justify-content: space-between; align-items: center;
-        }
-        .dark-mode .main-header {
-            background: rgba(30, 30, 30, 0.95);
-            border-bottom-color: var(--border);
-        }
-        .brand-name { font-size: 1.8rem; color: var(--primary); font-weight: 800; text-decoration: none; }
-        .orange-text { color: var(--secondary); }
-
-        .header-actions { display: flex; gap: 12px; align-items: center; }
-
-        /* --- Unified Button Styles including Home Button --- */
-        .cart-btn, .mode-btn, .lang-btn, .home-btn {
-            background: var(--grad-primary); color: white; padding: 10px 16px;
-            border-radius: 50px; cursor: pointer; border: none; font-weight: bold;
-            display: flex; align-items: center; gap: 8px; transition: 0.3s;
-            font-size: 0.95rem; text-decoration: none;
-        }
-        .mode-btn { background: var(--secondary); }
-        .lang-btn { background: var(--accent); color: var(--text); }
-        .home-btn { background: var(--grad-primary); } /* Home button matches Cart style */
-
-        .hero {
-            background: linear-gradient(rgba(30, 89, 89, 0.85), rgba(30, 89, 89, 0.85)), 
-                        url('https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?auto=format&fit=crop&w=1600&q=80  ');
-            background-size: cover; background-position: center;
-            color: white; padding: 60px 5%; text-align: center;
-        }
-
-        .container { padding: 40px 5%; max-width: 1300px; margin: 0 auto; }
-        .section-info { margin: 40px 0 30px; border-right: 6px solid var(--secondary); padding-right: 20px; }
-        .section-info h2 { color: var(--primary); font-size: 2rem; }
-        
-        .grid { 
-            display: grid; 
-            grid-template-columns: repeat(3, 1fr); 
-            gap: 25px; 
-            margin-bottom: 60px;
-        }
-
-        @media (max-width: 992px) { .grid { grid-template-columns: repeat(2, 1fr); } }
-        @media (max-width: 768px) { .grid { grid-template-columns: 1fr; } }
-
-        /* --- Card Styles --- */
-        .card {
-            background: var(--surface); border-radius: 20px; 
-            border: 1px solid var(--border); transition: 0.4s;
-            position: relative; display: flex; flex-direction: column; overflow: hidden;
-            box-shadow: 0 4px 10px var(--shadow); opacity: 0;
-        }
-
-        .card.visible { opacity: 1; animation: fadeInUp 0.6s ease forwards; }
-        .card:hover { transform: translateY(-10px); border-color: var(--secondary); }
-
-        .card-image { height: 180px; width: 100%; position: relative; }
-        .card-image img { width: 100%; height: 100%; object-fit: cover; }
-
-        .card-body { padding: 25px 20px; display: flex; flex-direction: column; flex-grow: 1; }
-        .price { font-size: 1.5rem; color: var(--primary); font-weight: 800; margin: 10px 0; }
-        
-        .btn-group { display: flex; gap: 10px; margin-top: auto; }
-        .btn-buy { flex: 2; background: var(--grad-primary); color: white; border: none; padding: 12px; border-radius: 10px; font-weight: 700; cursor: pointer; transition: 0.3s; }
-        .btn-details { flex: 1; background: #f0f4f4; color: var(--primary); border: 1.5px solid var(--primary); padding: 12px; border-radius: 10px; font-weight: 600; cursor: pointer; }
-        .dark-mode .btn-details { background: #2a2a2a; color: var(--primary); }
-        .btn-buy:hover { background: var(--grad-orange); }
-        .btn-details:hover { background: var(--primary); color: white; }
-
-        /* Worker card special style */
-        .worker-card {
-            background: var(--surface); border-radius: 20px; 
-            border: 1px solid var(--border); transition: 0.4s;
-            position: relative; display: flex; flex-direction: column; overflow: hidden;
-            box-shadow: 0 4px 15px var(--shadow); opacity: 0;
-            padding: 30px;
-        }
-        .worker-card.visible { opacity: 1; animation: fadeInUp 0.6s ease forwards; }
-        .worker-card:hover { transform: translateY(-8px); border-color: var(--secondary); box-shadow: 0 6px 20px var(--shadow); }
-
-        .worker-title { font-size: 1.6rem; font-weight: 800; color: var(--primary); margin-bottom: 15px; }
-        .worker-price { font-size: 1.4rem; color: var(--secondary-dark); font-weight: 700; margin: 10px 0; }
-        .worker-contains { margin: 15px 0; color: var(--text-muted); font-weight: 600; }
-        .worker-items { list-style: none; padding: 0; margin: 10px 0; }
-        .worker-items li { padding: 8px 0; display: flex; align-items: center; gap: 10px; }
-        .worker-items i { color: var(--secondary); }
-
-        /* --- Custom Modal Style --- */
-        .modal { 
-            position: fixed; top:0; left:0; width:100%; height:100%; 
-            background: rgba(0,0,0,0.8); display: none; 
-            justify-content: center; align-items: center; z-index: 3000;
-            backdrop-filter: blur(8px);
-        }
-        .modal-box { 
-            background: var(--surface); padding: 0; border-radius: 25px; 
-            max-width: 500px; width: 95%; overflow: hidden;
-            animation: zoomIn 0.3s ease-out;
-            position: relative;
-            color: var(--text);
-        }
-        .modal-header { background: var(--grad-primary); color: white; padding: 20px; text-align: center; }
-        .modal-content { padding: 30px; }
-        .content-item { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; padding: 10px; background: #f9fafb; border-radius: 12px; border-right: 4px solid var(--secondary); }
-        .dark-mode .content-item { background: #2a2a2a; }
-        .content-item i { color: var(--primary); font-size: 1.2rem; }
-
-        /* --- Sidebar Cart --- */
-        .sidebar { 
-            position: fixed; 
-            top: 0; 
-            left: -400px; 
-            width: 380px; 
-            height: 100vh; 
-            background: var(--surface); 
-            z-index: 2000; 
-            transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); 
-            box-shadow: 5px 0 30px rgba(0,0,0,0.15); 
-            padding: 30px 25px; 
-            color: var(--text); 
-            overflow-y: auto;
+        /* --- Topbar Style --- */
+        .topbar {
+            position: fixed;
+            top: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: min(1200px, 94%);
+            height: 64px;
             display: flex;
-            flex-direction: column;
-        }
-        .sidebar.active { left: 0; }
-
-        .cart-header {
-            display: flex;
-            justify-content: space-between;
+            flex-direction: row;
             align-items: center;
-            margin-bottom: 25px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid var(--border);
+            justify-content: space-between;
+            padding: 0 20px;
+            z-index: 1000;
+            background: var(--surface);
+            border-radius: var(--radius-pill);
+            box-shadow: 0 4px 15px var(--shadow);
+            border: 1px solid var(--border);
+            transition: 0.3s;
         }
-        .cart-header h2 {
-            color: var(--primary);
-            font-size: 1.6rem;
+
+        .topbar-left,
+        .topbar-right {
             display: flex;
             align-items: center;
             gap: 10px;
         }
-        .cart-header h2 i {
+
+        .topbar-btn {
+            height: 42px;
+            padding: 0 16px;
+            border-radius: var(--radius-pill);
+            border: none;
+            background: transparent;
+            color: var(--text);
+            font-size: 14px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .topbar-btn:hover {
+            background: rgba(0, 0, 0, 0.05);
+            color: var(--primary);
+        }
+
+        #langToggle,
+        #modeToggle,
+        .cart-trigger {
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .cart-trigger {
+            border-color: var(--secondary);
             color: var(--secondary);
         }
 
-        .cart-items {
-            flex: 1;
-            overflow-y: auto;
-            padding-right: 5px;
+        /* --- Global Styles --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
         }
-        .cart-item {
+
+        body {
+            background-color: var(--background);
+            color: var(--text);
+            transition: 0.3s;
+            padding-top: 100px;
+        }
+
+        .hero {
+            background: linear-gradient(rgba(30, 89, 89, 0.85), rgba(30, 89, 89, 0.85)),
+                url('https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 60px 5%;
+            text-align: center;
+            border-radius: 20px;
+            margin: 0 5% 40px;
+        }
+
+        .container {
+            padding: 0 5% 40px;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        .section-info {
+            margin: 40px 0 30px;
+            border-right: 6px solid var(--secondary);
+            padding-right: 20px;
+        }
+
+        [dir="ltr"] .section-info {
+            border-right: none;
+            border-left: 6px solid var(--secondary);
+            padding-left: 20px;
+        }
+
+        .section-info h2 {
+            color: var(--primary);
+            font-size: 2rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin-bottom: 60px;
+        }
+
+        @media (max-width: 992px) {
+            .grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* --- Card & Inputs --- */
+        .card,
+        .worker-card {
+            background: var(--surface);
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            transition: 0.4s;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 4px 10px var(--shadow);
+            opacity: 0;
+        }
+
+        .card.visible,
+        .worker-card.visible {
+            opacity: 1;
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .card-image {
+            height: 180px;
+            width: 100%;
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .card-body {
+            padding: 25px 20px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .price {
+            font-size: 1.5rem;
+            color: var(--primary);
+            font-weight: 800;
+            margin: 10px 0;
+        }
+
+        /* حقل الكمية المعدل */
+        .qty-container {
             display: flex;
             align-items: center;
-            padding: 14px 0;
-            border-bottom: 1px dashed var(--border);
-            animation: fadeInUp 0.3s ease;
+            gap: 8px;
+            margin-bottom: 15px;
+            background: rgba(0, 0, 0, 0.03);
+            padding: 5px 10px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
         }
-        .cart-item:last-child {
-            border-bottom: none;
-        }
-        .cart-item-img {
-            width: 60px;
-            height: 60px;
-            border-radius: 10px;
-            object-fit: cover;
-            margin-right: 15px;
-            border: 2px solid var(--border);
-        }
-        .cart-item-info {
-            flex: 1;
-        }
-        .cart-item-name {
-            font-weight: 600;
-            color: var(--text);
-            font-size: 0.95rem;
-            margin-bottom: 3px;
-        }
-        .cart-item-price {
-            font-weight: 700;
-            color: var(--primary);
-            font-size: 0.9rem;
-        }
-        .cart-item-remove {
-            background: none;
+
+        .qty-input {
+            width: 50px;
             border: none;
-            color: var(--secondary);
-            cursor: pointer;
-            font-size: 1.2rem;
-            padding: 5px;
-            border-radius: 50%;
-            transition: 0.2s;
+            background: transparent;
+            text-align: center;
+            font-weight: 800;
+            color: var(--primary);
+            font-size: 1.1rem;
         }
-        .cart-item-remove:hover {
-            background: var(--secondary);
+
+        .qty-input:focus {
+            outline: none;
+        }
+
+        .btn-buy {
+            flex: 1;
+            background: var(--grad-primary);
             color: white;
-        }
-
-        .cart-footer {
-            border-top: 2px solid var(--border);
-            padding-top: 20px;
-            margin-top: 10px;
-        }
-        .cart-total {
-            display: flex;
-            justify-content: space-between;
-            font-size: 1.2rem;
+            border: none;
+            padding: 12px;
+            border-radius: 10px;
             font-weight: 700;
-            margin-bottom: 20px;
-            color: var(--text);
-        }
-        .cart-total span {
-            color: var(--secondary);
+            cursor: pointer;
+            transition: 0.3s;
         }
 
-        footer { background: var(--primary-dark); color: white; padding: 40px; text-align: center; }
-        #toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #27ae60; color: white; padding: 10px 25px; border-radius: 50px; display: none; z-index: 4000; }
+        .btn-buy:hover {
+            background: var(--grad-orange);
+        }
+
+        .btn-details {
+            background: transparent;
+            color: var(--primary);
+            border: 1.5px solid var(--primary);
+            padding: 12px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 8px;
+        }
+
+        /* Sidebar & Modal */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 380px;
+            height: 100vh;
+            background: var(--surface);
+            z-index: 2000;
+            transition: 0.4s;
+            padding: 30px 25px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: -5px 0 30px rgba(0, 0, 0, 0.15);
+        }
+
+        [dir="ltr"] .sidebar {
+            right: auto;
+            left: -400px;
+        }
+
+        .sidebar.active {
+            right: 0;
+        }
+
+        [dir="ltr"] .sidebar.active {
+            left: 0;
+        }
+
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 3000;
+            backdrop-filter: blur(8px);
+        }
+
+        .modal-box {
+            background: var(--surface);
+            border-radius: 25px;
+            max-width: 500px;
+            width: 95%;
+            overflow: hidden;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+       /* Footer */
+    .site-footer {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: #fff;
+      padding: 4rem 0 1.5rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2.5rem;
+    }
+
+    .footer-brand img {
+      height: 55px;
+      margin-bottom: 1rem;
+      filter: brightness(0) invert(1);
+    }
+
+    .footer-brand p {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.85);
+    }
+
+    .site-footer h4 {
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+    }
+
+    .footer-links ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-links li {
+      margin-bottom: 0.6rem;
+    }
+
+    .footer-links a {
+      text-decoration: none;
+      color: rgba(255,255,255,0.85);
+      transition: 0.3s;
+    }
+
+    .footer-links a:hover {
+      color: var(--secondary);
+      padding-left: 5px;
+    }
+
+    .footer-contact p {
+      font-size: 0.95rem;
+      margin-bottom: 0.6rem;
+      color: rgba(255,255,255,0.85);
+    }
+
+    .footer-social {
+      margin-top: 1rem;
+      display: flex;
+      gap: 12px;
+    }
+
+    .footer-social a {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 18px;
+      color: #fff;
+      transition: 0.3s;
+    }
+
+    .footer-social a:hover {
+      background: var(--secondary);
+      transform: translateY(-3px);
+    }
+
+    .footer-bottom {
+      text-align: center;
+      margin-top: 3rem;
+      padding-top: 1.2rem;
+      border-top: 1px solid rgba(255,255,255,0.15);
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.75);
+    }
+
+        #toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #27ae60;
+            color: white;
+            padding: 10px 25px;
+            border-radius: 50px;
+            display: none;
+            z-index: 4000;
+        }
     </style>
 </head>
+
 <body>
 
-    <header class="main-header">
-        <a href="#" class="brand-name">Zera3a-<span class="orange-text">tech</span></a>
-        <div class="header-actions">
-            <!-- زر الصفحة الرئيسية الجديد -->
-            <button class="home-btn" id="homePageBtn" onclick="goHomeByRole()">
-  <i class="fas fa-home"></i>
-  <span id="homeBtnText">الرئيسية</span>
-</button>
-
-
-            <button class="mode-btn" id="darkModeBtn" onclick="toggleDarkMode()">
-                <i class="fas fa-moon"></i> <span>داكن</span>
-            </button>
-            <button class="lang-btn" id="langToggleBtn" onclick="toggleLanguage()">
-                <i class="fas fa-language"></i> <span>EN</span>
-            </button>
-            <button class="cart-btn" onclick="toggleCart()">
-                <i class="fas fa-shopping-basket"></i>
-                <span>السلة (<span id="cartCount">0</span>)</span>
+    <nav class="topbar">
+        <div class="topbar-left">
+            <button onclick="goHomeByRole()" class="topbar-btn">
+                <i class="fa-solid fa-arrow-left"></i>
+                <span id="txt-nav-home">الرئيسية</span>
             </button>
         </div>
-    </header>
+        <div class="topbar-right">
+            <button class="topbar-btn cart-trigger" onclick="toggleCart()">
+                <i class="fas fa-shopping-basket"></i>
+                <span id="cartCount">0</span>
+            </button>
+            <button id="langToggle" class="topbar-btn" onclick="toggleLanguage()">
+                <span id="txt-nav-lang" style="font-weight:700;">EN</span>
+                <i class="fa-solid fa-language"></i>
+            </button>
+            <button id="modeToggle" class="topbar-btn" onclick="toggleDarkMode()">
+                <i id="modeIcon" class="fa-solid fa-moon"></i>
+            </button>
+        </div>
+    </nav>
 
     <section class="hero">
-        <h1>العروض و الباكيدجات</h1>
-        <p>تصفح محتويات الباكيدجات المتكاملة لضمان أفضل اختيار</p>
+        <h1 id="txt-hero-title">العروض و الباكيدجات</h1>
+        <p id="txt-hero-desc">تصفح محتويات الباكيدجات المتكاملة لضمان أفضل اختيار</p>
     </section>
 
     <div class="container">
-        <!-- العروض الجديدة -->
         <section>
-            <div class="section-info"><h2>عروض للمستهلك 🧺</h2></div>
+            <div class="section-info">
+                <h2 id="txt-head-consumer">عروض للمستهلك 🧺</h2>
+            </div>
             <div class="grid" id="grid-consumer"></div>
         </section>
-
         <section>
-            <div class="section-info"><h2>عروض للعاملين 👨‍🌾</h2></div>
+            <div class="section-info">
+                <h2 id="txt-head-worker">عروض للعاملين 👨‍🌾</h2>
+            </div>
             <div class="grid" id="grid-worker"></div>
         </section>
-
-        <!-- القديم -->
         <section>
-            <div class="section-info"><h2>الباكيدجات المتكاملة 📦</h2></div>
+            <div class="section-info">
+                <h2 id="txt-head-mega">الباكيدجات المتكاملة 📦</h2>
+            </div>
             <div class="grid" id="grid-mega"></div>
         </section>
-
         <section>
-            <div class="section-info"><h2>الأنظمة والتقنيات ⚡</h2></div>
+            <div class="section-info">
+                <h2 id="txt-head-tech">الأنظمة والتقنيات ⚡</h2>
+            </div>
             <div class="grid" id="grid-tech"></div>
         </section>
-
         <section>
-            <div class="section-info"><h2>البذور والمدخلات 🌱</h2></div>
+            <div class="section-info">
+                <h2 id="txt-head-seeds">البذور والمدخلات 🌱</h2>
+            </div>
             <div class="grid" id="grid-seeds"></div>
         </section>
     </div>
 
-    <div id="detailsModal" class="modal">
-        <div class="modal-box">
-            <div class="modal-header">
-                <h3 id="modalTitle">اسم الباكيدج</h3>
-            </div>
-            <div class="modal-content">
-                <h4 style="margin-bottom: 15px; color: var(--text-muted);" id="modalContentTitle">محتويات الباكيدج:</h4>
-                <div id="modalList">
-                    </div>
-                <button class="btn-buy" style="width: 100%; margin-top: 20px;" onclick="closeModal()" id="modalCloseBtn">فهمت، إغلاق</button>
-            </div>
-        </div>
-    </div>
-
+    <!-- Cart Sidebar -->
     <div id="sideCart" class="sidebar">
-        <div class="cart-header">
-            <h2><i class="fas fa-shopping-basket"></i> <span id="cartTitle">مشترياتك</span></h2>
-            <button onclick="toggleCart()" style="background:none; border:none; font-size:1.5rem; color:var(--text-muted); cursor:pointer;">×</button>
+        <div
+            style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid var(--border); padding-bottom:15px; margin-bottom:20px;">
+            <h2 style="color:var(--primary)"><i class="fas fa-shopping-basket"></i> <span
+                    id="txt-cart-title">مشترياتك</span></h2>
+            <button onclick="toggleCart()"
+                style="background:none; border:none; font-size:1.5rem; cursor:pointer;">×</button>
         </div>
-        <div id="cartItems" class="cart-items">
-            <!-- سيتم ملؤه ديناميكيًا -->
-        </div>
-        <div class="cart-footer">
-            <div class="cart-total">
-                <span id="totalLabel">الإجمالي:</span>
+        <div id="cartItems" style="flex:1; overflow-y:auto;"></div>
+        <div style="border-top:2px solid var(--border); padding-top:20px;">
+            <div
+                style="display:flex; justify-content:space-between; font-weight:800; font-size:1.2rem; margin-bottom:20px;">
+                <span id="txt-cart-total">الإجمالي:</span>
                 <span id="totalPrice">0 EGP</span>
             </div>
-            <button class="btn-buy" style="width: 100%; margin-top: 10px;" onclick="completeOrder()">
-                <i class="fas fa-check-circle"></i> <span id="checkoutBtn">إتمام الطلب</span>
-            </button>
+            <!-- زر إتمام الطلب الذي يحول للمحفظة -->
+            <button class="btn-buy" style="width:100%;" onclick="goToWallet()" id="txt-cart-checkout">إتمام
+                الطلب</button>
         </div>
     </div>
 
-    <footer><p id="footerText">&copy; 2026 زراعة تيك - جميع الأسعار بـ EGP</p></footer>
+    <!-- Modal -->
+    <div id="detailsModal" class="modal">
+        <div class="modal-box">
+            <div style="background:var(--grad-primary); color:white; padding:20px; text-align:center;">
+                <h3 id="modalTitle">اسم الباكيدج</h3>
+            </div>
+            <div style="padding:30px;">
+                <h4 id="txt-modal-head" style="margin-bottom:15px; color:var(--text-muted);">محتويات الباكيدج:</h4>
+                <div id="modalList"></div>
+                <button class="btn-buy" style="width:100%; margin-top:20px;" onclick="closeModal()"
+                    id="txt-modal-close">إغلاق</button>
+            </div>
+        </div>
+    </div>
+
     <div id="toast">تم الإضافة للسلة ✅</div>
+   <footer class="site-footer">
+  <div class="container footer-grid">
 
+    <div class="footer-brand">
+      <img src="./smart_farm_no_bg-removebg-preview.png" alt="Zera3a-Tech Logo">
+      <p>
+        Zera3a-Tech is a smart agricultural ecosystem connecting farmers, buyers,
+        investors, and suppliers through modern technology.
+      </p>
+    </div>
+
+    <div class="footer-links">
+      <h4>Platform</h4>
+      <ul>
+        <li><a href="#">Marketplace</a></li>
+        <li><a href="#">Crop Tracking</a></li>
+        <li><a href="#">Cost Calculator</a></li>
+        <li><a href="#">Community</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-links">
+      <h4>Resources</h4>
+      <ul>
+        <li><a href="#">Farming Tips</a></li>
+        <li><a href="#">Livestock Guide</a></li>
+        <li><a href="#">Expert Advice</a></li>
+        <li><a href="#">Investment Opportunities</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-contact">
+      <h4>Contact</h4>
+      <p>📍 Cairo, Egypt</p>
+      <p>📞 +20 123 456 7890</p>
+      <p>📧 support@zera3a-tech.com</p>
+
+      <div class="footer-social">
+        <a href="#">🌐</a>
+        <a href="#">📘</a>
+        <a href="#">🐦</a>
+        <a href="#">📸</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    © 2025 Zera3a-Tech. All rights reserved.
+  </div>
+</footer>
     <script>
-        // === البيانات ===
         const storeData = [
-            { 
-                id: 10, cat: 'consumer', name: 'بُوكس فواكه أسبوعي', name_en: 'Weekly Fruit Box', price: 250, img:'41a60104-8cb0-465d-8c8d-08b8e0569709-1000x1000-x7wqfVKUDSZNlpLBfRJWwR1sivuhK9gt9jrPKe2h.webp' ,
-                items: [
-                    { txt: '5 أنواع فواكه طازجة', txt_en: '5 types of fresh fruits', icon: 'fa-apple-whole' },
-                    { txt: 'توصيل أسبوعي مجاني', txt_en: 'Free weekly delivery', icon: 'fa-truck-fast' },
-                    { txt: 'عبوة صديقة للبيئة', txt_en: 'Eco-friendly packaging', icon: 'fa-recycle' }
-                ]
-            },
-            { 
-                id: 11, cat: 'consumer', name: 'بُوكس خضروات عضوية', name_en: 'Organic Vegetables Box', price: 220, img: 'a99ec96f-dfb7-40fd-9127-4e32687c1d86-1000x1000-Y24VcnQ7hGo1Q5Z6dddjhQXV3ptYn4z3olHbS5LB.webp' ,
-                items: [
-                    { txt: 'خضروات عضوية 100%', txt_en: '100% organic vegetables', icon: 'fa-leaf' },
-                    { txt: 'وزن 3-4 كجم أسبوعياً', txt_en: '3-4 kg weight weekly', icon: 'fa-weight-hanging' },
-                    { txt: 'دعم مزرعة محلية', txt_en: 'Support local farm', icon: 'fa-hand-holding-heart' }
-                ]
-            },
-            { 
-    id: 12, cat: 'consumer', name: 'بُوكس عصائر طازجة', name_en: 'Fresh Juices Box', price: 180, img: '7983bd87127b25ecc987996f14b663e8.jpg ',
-                items: [
-                    { txt: '3 عبوات عصير طبيعي', txt_en: '3 natural juice bottles', icon: 'fa-bottle-water' },
-                    { txt: 'بدون سكر مضاف', txt_en: 'No added sugar', icon: 'fa-ban' },
-                    { txt: 'وصفات صحية مرفقة', txt_en: 'Healthy recipes included', icon: 'fa-book' }
-                ]
-            },
-            { 
-                id: 16, cat: 'consumer', name: 'بُوكس طبخ منزلي', name_en: 'Home Cooking Box', price: 300, img: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=600&q=80  ',
-                items: [
-                    { txt: 'مكونات وصفات أسبوعية', txt_en: 'Weekly recipe ingredients', icon: 'fa-bowl-food' },
-                    { txt: 'وصفات خطوة بخطوة', txt_en: 'Step-by-step recipes', icon: 'fa-list-check' },
-                    { txt: 'دعم عبر تطبيق الواتساب', txt_en: 'WhatsApp app support', icon: 'fa-message' }
-                ]
-            },
-            { 
-                id: 17, cat: 'consumer', name: 'بُوكس فطور صحي', name_en: 'Healthy Breakfast Box', price: 200, img: 'charts-organic-food-lunch-boxes_23-2148515966.jpg' ,
-                items: [
-                    { txt: 'حبوب، عسل، لبن، فواكه جافة', txt_en: 'Grains, honey, milk, dried fruits', icon: 'fa-jar' },
-                    { txt: 'طاقة يومية متوازنة', txt_en: 'Balanced daily energy', icon: 'fa-fire-flame-curved' },
-                    { txt: 'توصيل صباحي', txt_en: 'Morning delivery', icon: 'fa-clock' }
-                ]
-            },
-            { 
-                id: 18, cat: 'consumer', name: 'بُوكس هدايا زراعية', name_en: 'Agricultural Gift Box', price: 350, img: '91Qz9N0pG1L._AC_UF894,1000_QL80_.jpg ',
-                items: [
-                    { txt: 'نبتة منزلية + أصيص فخاري', txt_en: 'Houseplant + clay pot', icon: 'fa-tree' },
-                    { txt: 'كتيب العناية بالنباتات', txt_en: 'Plant care booklet', icon: 'fa-book-open' },
-                    { txt: 'بطاقة هدايا شخصية', txt_en: 'Personal gift card', icon: 'fa-gift' }
-                ]
-            },
+            { id: 10, cat: 'consumer', name: 'بُوكس فواكه أسبوعي', name_en: 'Weekly Fruit Box', price: 250, img: '41a60104-8cb0-465d-8c8d-08b8e0569709-1000x1000-x7wqfVKUDSZNlpLBfRJWwR1sivuhK9gt9jrPKe2h.webp', items: [{ txt: '5 أنواع فواكه طازجة', txt_en: '5 types of fresh fruits' }] },
+            { id: 11, cat: 'consumer', name: 'بُوكس خضروات عضوية', name_en: 'Organic Veg Box', price: 220, img: 'a99ec96f-dfb7-40fd-9127-4e32687c1d86-1000x1000-Y24VcnQ7hGo1Q5Z6dddjhQXV3ptYn4z3olHbS5LB.webp', items: [{ txt: 'خضروات عضوية 100%', txt_en: '100% Organic' }] },
+            { id: 12, cat: 'consumer', name: 'بُوكس عصائر طازجة', name_en: 'Fresh Juices Box', price: 180, img: '7983bd87127b25ecc987996f14b663e8.jpg ', items: [{ txt: 'بدون سكر مضاف', txt_en: 'No added sugar' }] },
+            { id: 16, cat: 'consumer', name: 'بُوكس طبخ منزلي', name_en: 'Home Cooking Box', price: 300, img: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=600&q=80', items: [{ txt: 'مكونات وصفات جاهزة', txt_en: 'Ready recipe ingredients' }] },
+            { id: 17, cat: 'consumer', name: 'بُوكس فطور صحي', name_en: 'Healthy Breakfast Box', price: 200, img: 'charts-organic-food-lunch-boxes_23-2148515966.jpg', items: [{ txt: 'عسل وحبوب طبيعية', txt_en: 'Honey & Natural grains' }] },
+            { id: 18, cat: 'consumer', name: 'بُوكس هدايا زراعية', name_en: 'Agri Gift Box', price: 350, img: '91Qz9N0pG1L._AC_UF894,1000_QL80_.jpg', items: [{ txt: 'نبتة منزلية + أصيص', txt_en: 'Indoor plant + pot' }] },
 
-            { 
-                id: 13, cat: 'worker', name: 'باكيج Free', name_en: 'Free Package', price: 0, img: 'https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?auto=format&fit=crop&w=600&q=80  ',
-                items: [
-                    { txt: 'استشارة مجانية شهرية', txt_en: 'Free monthly consultation' },
-                    { txt: 'وصول إلى قاعدة المعرفة', txt_en: 'Access to knowledge base' },
-                    { txt: 'خصومات على المنتجات', txt_en: 'Product discounts' }
-                ]
-            },
-            { 
-                id: 14, cat: 'worker', name: 'باكيج Premium', name_en: 'Premium Package', price: 1200, img: 'https://images.unsplash.com/photo-1581093450021-4a7360e9a6b5?auto=format&fit=crop&w=600&q=80  ',
-                items: [
-                    { txt: 'دعم فني مباشر 24/7', txt_en: '24/7 direct technical support' },
-                    { txt: 'زيارات ميدانية ربع سنوية', txt_en: 'Quarterly field visits' },
-                    { txt: 'تقارير تحليل التربة', txt_en: 'Soil analysis reports' }
-                ]
-            },
-            { 
-                id: 15, cat: 'worker', name: 'باكيج VIP', name_en: 'VIP Package', price: 3500, img: 'https://images.unsplash.com/photo-1589998059171-988d887df646?auto=format&fit=crop&w=600&q=80  ',
-                items: [
-                    { txt: 'مهندس زراعي شخصي', txt_en: 'Personal agricultural engineer' },
-                    { txt: 'نظام مراقبة ذكي مجاني', txt_en: 'Free smart monitoring system' },
-                    { txt: 'تدريب عملي شهري', txt_en: 'Monthly practical training' }
-                ]
-            },
-            { 
-                id: 19, cat: 'worker', name: 'باكيج ريادة الأعمال', name_en: 'Entrepreneurship Package', price: 5000, img: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=600&q=80  ',
-                items: [
-                    { txt: 'خطة عمل زراعي مخصصة', txt_en: 'Custom agricultural business plan' },
-                    { txt: 'ربط بأسواق التصدير', txt_en: 'Export market connections' },
-                    { txt: 'دعم تسجيل علامة تجارية', txt_en: 'Trademark registration support' }
-                ]
-            },
-            { 
-                id: 20, cat: 'worker', name: 'باكيج تدريب ميداني', name_en: 'Field Training Package', price: 800, img: 'https://images.unsplash.com/photo-1543269664-76bc3997d9ea?auto=format&fit=crop&w=600&q=80  ',
-                items: [
-                    { txt: 'ورشة تدريبية أسبوعية', txt_en: 'Weekly training workshop' },
-                    { txt: 'شهادة معتمدة', txt_en: 'Certified certificate' },
-                    { txt: 'مواد تدريبية رقمية', txt_en: 'Digital training materials' }
-                ]
-            },
+            { id: 13, cat: 'worker', name: 'باكيج Free', name_en: 'Free Package', price: 0, img: 'https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?auto=format&fit=crop&w=600&q=80', items: [{ txt: 'استشارة مجانية', txt_en: 'Free Consultation' }] },
+            { id: 14, cat: 'worker', name: 'باكيج Premium', name_en: 'Premium Package', price: 1200, img: 'https://images.unsplash.com/photo-1581093450021-4a7360e9a6b5?auto=format&fit=crop&w=600&q=80', items: [{ txt: 'دعم فني 24/7', txt_en: '24/7 Support' }] },
+            { id: 15, cat: 'worker', name: 'باكيج VIP', name_en: 'VIP Package', price: 3500, img: 'https://images.unsplash.com/photo-1589998059171-988d887df646?auto=format&fit=crop&w=600&q=80', items: [{ txt: 'مهندس خاص', txt_en: 'Private Engineer' }] },
+            { id: 19, cat: 'worker', name: 'باكيج ريادة الأعمال', name_en: 'Entrepreneur Package', price: 5000, img: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=600&q=80', items: [{ txt: 'دراسة جدوى متكاملة', txt_en: 'Business Plan' }] },
+            { id: 20, cat: 'worker', name: 'باكيج تدريب ميداني', name_en: 'Field Training', price: 800, img: 'https://images.unsplash.com/photo-1543269664-76bc3997d9ea?auto=format&fit=crop&w=600&q=80', items: [{ txt: 'شهادة معتمدة', txt_en: 'Certified Certificate' }] },
 
-            { 
-                id: 1, cat: 'mega', name: 'باكيدج زرعنا', name_en: 'Zar3na Package', price: 15000, img: 'pngtree-sustainable-development-goals-planting-a-seed-for-greener-future-image_17455214.webp  ',
-                items: [
-                    { txt: 'تقاوي قمح معتمدة تكفي فدان كامل', txt_en: 'Certified wheat seeds for 1 acre', icon: 'fa-seedling' },
-                    { txt: '10 شكاير سماد يوريا محلي', txt_en: '10 bags of local urea fertilizer', icon: 'fa-box' },
-                    { txt: 'برنامج تسميد مجاني من مهندسينا', txt_en: 'Free fertilization program from our engineers', icon: 'fa-file-medical' },
-                    { txt: 'مبيد حشري وفطري للوقاية', txt_en: 'Insecticide and fungicide for prevention', icon: 'fa-flask' }
-                ]
-            },
-            { 
-                id: 2, cat: 'mega', name: 'باكيدج مزرعة الفواكه', name_en: 'Fruit Farm Package', price: 22000, img: 'pngtree-organic-produce-farmers-market-fresh-fruits-vegetables-image_16863051.jpg ',
-                items: [
-                    { txt: '50 شتلة مانجو أو موالح هجين', txt_en: '50 hybrid mango or citrus seedlings', icon: 'fa-tree' },
-                    { txt: 'شبكة ري تنقيط فرعية (500 متر)', txt_en: 'Sub-drip irrigation network (500m)', icon: 'fa-faucet' },
-                    { txt: 'منشط جذور إسباني سعة 5 لتر', txt_en: 'Spanish root stimulant 5L', icon: 'fa-vial' },
-                    { txt: 'متابعة دورية عبر واتساب', txt_en: 'Periodic follow-up via WhatsApp', icon: 'fa-mobile-screen' }
-                ]
-            },
-            { 
-                id: 3, cat: 'mega', name: 'باكيدج الزراعه الذكيه', name_en: 'Smart Farming Package', price: 8500, img: 'web-in2-5.jpg ',
-                items: [
-                    { txt: 'مجموعة بذور خضروات متنوعة', txt_en: 'Mixed vegetable seeds set', icon: 'fa-leaf' },
-                    { txt: 'جهاز ري تايمر رقمي (Automatic)', txt_en: 'Digital irrigation timer (Automatic)', icon: 'fa-clock' },
-                    { txt: 'تربة بيتموس معالجة (50 لتر)', txt_en: 'Treated peat moss soil (50L)', icon: 'fa-mountain' },
-                    { txt: 'أدوات حديقة يدوية (4 قطع)', txt_en: 'Manual garden tools (4 pieces)', icon: 'fa-screwdriver-wrench' }
-                ]
-            },
-            
-            { id: 4, cat: 'tech', name: 'نظام ري بالرش', name_en: 'Sprinkler Irrigation System', price: 12500, img: '16.webp ', items: [{txt: 'لوحة تحكم ذكية', txt_en: 'Smart control panel', icon: 'fa-microchip'}, {txt: 'حساس رطوبة تربة', txt_en: 'Soil moisture sensor', icon: 'fa-droplet'}] },
-            { id: 5, cat: 'tech', name: 'طلمبة طاقة شمسية', name_en: 'Solar Powered Pump', price: 35000, img: 'solar-powered-pump-drives-factory63419.webp ', items: [{txt: '6 ألواح شمسية 450 وات', txt_en: '6 solar panels 450W', icon: 'fa-sun'}, {txt: 'انفرتر مخصص', txt_en: 'Dedicated inverter', icon: 'fa-bolt'}] },
-            { id: 6, cat: 'tech', name: 'نظام تربه صحيه', name_en: 'Healthy Soil System', price: 4200, img: 'images-13-1.jpg', items: [{txt: 'جهاز قياس PH وملوحة', txt_en: 'PH and salinity meter', icon: 'fa-flask'}, {txt: 'شنطة حماية', txt_en: 'Protection bag', icon: 'fa-briefcase'}] },
-            
-            { id: 7, cat: 'seeds', name: 'تقاوي قمح معتمدة', name_en: 'Certified Wheat Seeds', price: 1800, img: '1969890a5262490f9ec5d8a87b0dbe9d_Qmh0.jpeg ', items: [{txt: 'وزن 30 كجم', txt_en: 'Weight 30kg', icon: 'fa-weight-hanging'}, {txt: 'نسبة إنبات 98%', txt_en: 'Germination rate 98%', icon: 'fa-up-long'}] },
-            { id: 8, cat: 'seeds', name: 'أسمدة NPK مركبة', name_en: 'NPK Compound Fertilizers', price: 3200, img: 'ddd.webp', items: [{txt: 'جالون 10 لتر', txt_en: '10 liter gallon', icon: 'fa-bottle-water'}, {txt: 'تركيز عالي', txt_en: 'High concentration', icon: 'fa-fire'}] },
-            { id: 9, cat: 'seeds', name: 'بذور خضروات هجين', name_en: 'Hybrid Vegetable Seeds', price: 950, img: 'jjj.jpg ', items: [{txt: 'بذور فلفل وطماطم', txt_en: 'Pepper and tomato seeds', icon: 'fa-pepper-hot'}, {txt: 'مقاومة للفيروسات', txt_en: 'Virus resistant', icon: 'fa-shield-virus'}] }
+            { id: 1, cat: 'mega', name: 'باكيدج زرعنا', name_en: 'Zar3na Package', price: 15000, img: 'pngtree-sustainable-development-goals-planting-a-seed-for-greener-future-image_17455214.webp', items: [{ txt: 'تقاوي قمح معتمدة', txt_en: 'Certified Wheat Seeds' }] },
+            { id: 2, cat: 'mega', name: 'باكيدج مزرعة الفواكه', name_en: 'Fruit Farm Package', price: 22000, img: 'pngtree-organic-produce-farmers-market-fresh-fruits-vegetables-image_16863051.jpg', items: [{ txt: '50 شتلة مانجو', txt_en: '50 Mango Seedlings' }] },
+            { id: 3, cat: 'mega', name: 'باكيدج الزراعه الذكيه', name_en: 'Smart Farm Package', price: 8500, img: 'web-in2-5.jpg', items: [{ txt: 'نظام ري أوتوماتيك', txt_en: 'Auto Irrigation' }] },
+
+            { id: 4, cat: 'tech', name: 'نظام ري بالرش', name_en: 'Sprinkler System', price: 12500, img: '16.webp', items: [{ txt: 'لوحة تحكم ذكية', txt_en: 'Smart Control' }] },
+            { id: 5, cat: 'tech', name: 'طلمبة طاقة شمسية', name_en: 'Solar Pump', price: 35000, img: 'solar-powered-pump-drives-factory63419.webp', items: [{ txt: '6 ألواح شمسية', txt_en: '6 Solar Panels' }] },
+            { id: 6, cat: 'tech', name: 'نظام تربه صحيه', name_en: 'Healthy Soil System', price: 4200, img: 'images-13-1.jpg', items: [{ txt: 'جهاز قياس PH', txt_en: 'PH Meter' }] },
+
+            { id: 7, cat: 'seeds', name: 'تقاوي قمح معتمدة', name_en: 'Certified Wheat', price: 1800, img: '1969890a5262490f9ec5d8a87b0dbe9d_Qmh0.jpeg', items: [{ txt: 'وزن 30 كجم', txt_en: 'Weight 30kg' }] },
+            { id: 8, cat: 'seeds', name: 'أسمدة NPK مركبة', name_en: 'NPK Fertilizer', price: 3200, img: 'ddd.webp', items: [{ txt: 'جالون 10 لتر', txt_en: '10L Gallon' }] },
+            { id: 9, cat: 'seeds', name: 'بذور خضروات هجين', name_en: 'Hybrid Seeds', price: 950, img: 'jjj.jpg', items: [{ txt: 'بذور فلفل وطماطم', txt_en: 'Pepper & Tomato' }] }
         ];
 
-        const translations = {
+        const langData = {
             ar: {
-                pageTitle: "Zera3a-tech | بوابة المزارع الذكي",
-                heroTitle: "العروض و الباكيدجات",
-                heroDesc: "تصفح محتويات الباكيدجات المتكاملة لضمان أفضل اختيار",
-                consumer: "عروض للمستهلك 🧺",
-                worker: "عروض للعاملين 👨‍🌾",
-                mega: "الباكيدجات المتكاملة 📦",
-                tech: "الأنظمة والتقنيات ⚡",
-                seeds: "البذور والمدخلات 🌱",
-                contains: "يحتوي على:",
-                cart: "السلة",
-                dark: "داكن",
-                light: "فاتح",
-                langBtn: "EN",
-                addToCart: "أضف للسلة",
-                details: "التفاصيل",
-                yourCart: "مشترياتك",
-                total: "الإجمالي:",
-                checkout: "إتمام الطلب",
-                emptyCart: "سلة مشترياتك فارغة 🛒",
-                orderCompleted: "تم إتمام طلبك بنجاح! 🎉",
-                closeModal: "فهمت، إغلاق",
-                modalTitle: "محتويات الباكيدج:",
-                removeItem: "إزالة",
-                footer: "&copy; 2026 زراعة تيك - جميع الأسعار بـ EGP",
-                brand: "Zera3a-tech",
-                homeBtn: "الرئيسية" // Added Home Translation
+                navHome: "الرئيسية", navLang: "EN",
+                heroTitle: "العروض و الباكيدجات", heroDesc: "تصفح محتويات الباكيدجات المتكاملة لضمان أفضل اختيار",
+                headConsumer: "عروض للمستهلك 🧺", headWorker: "عروض للعاملين 👨‍🌾",
+                headMega: "الباكيدجات المتكاملة 📦", headTech: "الأنظمة والتقنيات ⚡", headSeeds: "البذور والمدخلات 🌱",
+                cartTitle: "مشترياتك", cartTotal: "الإجمالي:", cartCheckout: "إتمام الطلب", cartEmpty: "السلة فارغة 🛒",
+                modalHead: "محتويات الباكيدج:", modalClose: "إغلاق", btnBuy: "أضف للسلة", btnDetails: "التفاصيل",
+                qty: "الكمية:", free: "مجانًا", contains: "يحتوي على:",
+                toastAdd: "تم الإضافة للسلة ✅"
             },
             en: {
-                pageTitle: "Zera3a-tech | Smart Farmer Gateway",
-                heroTitle: "Offers & Packages",
-                heroDesc: "Browse integrated packages for the best choice",
-                consumer: "Consumer Offers 🧺",
-                worker: "Worker Packages 👨‍🌾",
-                mega: "Integrated Packages 📦",
-                tech: "Tech & Systems ⚡",
-                seeds: "Seeds & Inputs 🌱",
-                contains: "Contains:",
-                cart: "Cart",
-                dark: "Dark",
-                light: "Light",
-                langBtn: "AR",
-                addToCart: "Add to Cart",
-                details: "Details",
-                yourCart: "Your Cart",
-                total: "Total:",
-                checkout: "Complete Order",
-                emptyCart: "Your cart is empty 🛒",
-                orderCompleted: "Your order has been completed successfully! 🎉",
-                closeModal: "Got it, Close",
-                modalTitle: "Package Contents:",
-                removeItem: "Remove",
-                footer: "&copy; 2026 Zera3a-tech - All prices in EGP",
-                brand: "Zera3a-tech",
-                homeBtn: "Home" // Added Home Translation
+                navHome: "Home", navLang: "AR",
+                heroTitle: "Offers & Packages", heroDesc: "Browse our integrated packages for the best choice",
+                headConsumer: "Consumer Offers 🧺", headWorker: "Worker Offers 👨‍🌾",
+                headMega: "Mega Packages 📦", headTech: "Agri-Tech & Systems ⚡", headSeeds: "Seeds & Inputs 🌱",
+                cartTitle: "Your Cart", cartTotal: "Total:", cartCheckout: "Checkout", cartEmpty: "Cart is empty 🛒",
+                modalHead: "Package Contents:", modalClose: "Close", btnBuy: "Add to Cart", btnDetails: "Details",
+                qty: "Qty:", free: "Free", contains: "Contains:",
+                toastAdd: "Added to Cart ✅"
             }
         };
 
         let currentLang = 'ar';
         let isDarkMode = false;
+        let cart = []; // السلة ستخزن [{id, name, price, qty, img}]
 
         function init() {
-            const grids = {
-                mega: document.getElementById('grid-mega'),
-                tech: document.getElementById('grid-tech'),
-                seeds: document.getElementById('grid-seeds'),
-                consumer: document.getElementById('grid-consumer'),
-                worker: document.getElementById('grid-worker')
-            };
-
-            Object.values(grids).forEach(grid => grid.innerHTML = '');
+            const grids = ['consumer', 'worker', 'mega', 'tech', 'seeds'];
+            grids.forEach(g => document.getElementById(`grid-${g}`).innerHTML = '');
 
             storeData.forEach(p => {
                 const name = currentLang === 'ar' ? p.name : p.name_en;
-                if (p.cat === 'worker') {
-                    const card = document.createElement('div');
-                    card.className = 'worker-card';
-                    const priceText = p.price === 0 ? (currentLang === 'ar' ? 'مجانًا' : 'Free') : `${p.price.toLocaleString()} EGP`;
-                    card.innerHTML = `
-                        <div class="worker-title">${name}</div>
-                        <div class="worker-price">${priceText}</div>
-                        <div class="worker-contains">${translations[currentLang].contains}</div>
-                        <ul class="worker-items">
-                            ${p.items.map(item => `<li><i class="fas fa-check-circle"></i> ${currentLang === 'ar' ? item.txt : item.txt_en}</li>`).join('')}
-                        </ul>
-                        <div style="margin-top: auto; display:flex; gap:10px;">
-                            <button class="btn-buy" style="flex:2;" onclick="addToCart(${p.id})">
-                                ${translations[currentLang].addToCart}
-                            </button>
-                            <button class="btn-details" style="flex:1;" onclick="openDetails(${p.id})">
-                                ${translations[currentLang].details}
-                            </button>
-                        </div>
-                    `;
-                    grids.worker.appendChild(card);
-                } else {
-                    const card = document.createElement('div');
-                    card.className = 'card';
-                    card.innerHTML = `
-                        <div class="card-image"><img src="${p.img}" alt="${name}"></div>
+                const grid = document.getElementById(`grid-${p.cat}`);
+
+                // قالب الكارت مع الانبوت
+                const cardHTML = `
+                    <div class="${p.cat === 'worker' ? 'worker-card' : 'card'}">
+                        ${p.cat !== 'worker' ? `<div class="card-image"><img src="${p.img}"></div>` : ''}
                         <div class="card-body">
-                            <h3>${name}</h3>
-                            <div class="price">${p.price.toLocaleString()} <span style="font-size:0.8rem">EGP</span></div>
-                            <div class="btn-group">
-                                <button class="btn-buy" onclick="addToCart(${p.id})">${translations[currentLang].addToCart}</button>
-                                <button class="btn-details" onclick="openDetails(${p.id})">${translations[currentLang].details}</button>
+                            <div class="${p.cat === 'worker' ? 'worker-title' : ''}" style="${p.cat !== 'worker' ? 'font-weight:700; font-size:1.1rem;' : ''}">${name}</div>
+                            <div class="${p.cat === 'worker' ? 'worker-price' : 'price'}">${p.price === 0 ? langData[currentLang].free : p.price.toLocaleString() + ' EGP'}</div>
+                            
+                            <div class="qty-container">
+                                <span style="font-size:0.8rem; font-weight:700;">${langData[currentLang].qty}</span>
+                                <input type="number" id="qty-${p.id}" class="qty-input" value="1" min="1">
                             </div>
+
+                            <div style="display:flex; gap:8px;">
+                                <button class="btn-buy" onclick="addToCart(${p.id})">${langData[currentLang].btnBuy}</button>
+                            </div>
+                            <button class="btn-details" onclick="openDetails(${p.id})">${langData[currentLang].btnDetails}</button>
                         </div>
-                    `;
-                    grids[p.cat].appendChild(card);
-                }
+                    </div>
+                `;
+                grid.innerHTML += cardHTML;
             });
 
             const observer = new IntersectionObserver(entries => {
-                entries.forEach(entry => {
-                    if(entry.isIntersecting) entry.target.classList.add('visible');
-                });
+                entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
             }, { threshold: 0.1 });
             document.querySelectorAll('.card, .worker-card').forEach(c => observer.observe(c));
         }
 
-        function openDetails(id) {
-            const p = storeData.find(x => x.id === id);
-            const name = currentLang === 'ar' ? p.name : p.name_en;
-            document.getElementById('modalTitle').innerText = name;
-            document.getElementById('modalContentTitle').innerText = translations[currentLang].modalTitle;
-            document.getElementById('modalCloseBtn').innerText = translations[currentLang].closeModal;
-            
-            const listContainer = document.getElementById('modalList');
-            if (typeof p.items[0] === 'string' || !p.items[0].txt) {
-                listContainer.innerHTML = p.items.map(item => {
-                    const text = typeof item === 'string' ? item : (currentLang === 'ar' ? item.txt : item.txt_en);
-                    return `
-                        <div class="content-item">
-                            <i class="fas fa-check"></i>
-                            <span>${text}</span>
-                        </div>
-                    `;
-                }).join('');
-            } else {
-                listContainer.innerHTML = p.items.map(item => `
-                    <div class="content-item">
-                        <i class="fas ${item.icon}"></i>
-                        <span>${currentLang === 'ar' ? item.txt : item.txt_en}</span>
-                    </div>
-                `).join('');
-            }
-            document.getElementById('detailsModal').style.display = 'flex';
-        }
-
-        function closeModal() {
-            document.getElementById('detailsModal').style.display = 'none';
-        }
-
-        window.onclick = function(event) {
-            let modal = document.getElementById('detailsModal');
-            if (event.target == modal) closeModal();
-        }
-
-        let cart = [];
         function addToCart(id) {
             const p = storeData.find(x => x.id === id);
-            cart.push(p);
-            updateCart();
+            const qtyInput = document.getElementById(`qty-${id}`);
+            const qty = parseInt(qtyInput.value) || 1;
+
+            const existingItem = cart.find(item => item.id === id);
+            if (existingItem) {
+                existingItem.qty += qty;
+            } else {
+                cart.push({
+                    id: p.id,
+                    name: currentLang === 'ar' ? p.name : p.name_en,
+                    price: p.price,
+                    img: p.img,
+                    qty: qty
+                });
+            }
+
+            updateCartUI();
+            qtyInput.value = 1; // ريست للرقم
+
             const t = document.getElementById('toast');
+            t.innerText = langData[currentLang].toastAdd; // تفعيل ترجمة التوست
             t.style.display = 'block';
             setTimeout(() => t.style.display = 'none', 2000);
         }
 
-        function removeFromCart(id) {
-            cart = cart.filter(item => item.id !== id);
-            updateCart();
-        }
-
-        function updateCart() {
-            document.getElementById('cartCount').innerText = cart.length;
+        function updateCartUI() {
+            document.getElementById('cartCount').innerText = cart.reduce((sum, item) => sum + item.qty, 0);
             const list = document.getElementById('cartItems');
             let total = 0;
 
             if (cart.length === 0) {
-                list.innerHTML = `<div style="text-align:center; padding:40px; color:var(--text-muted);">${translations[currentLang].emptyCart}</div>`;
+                list.innerHTML = `<div style="text-align:center; padding:40px;">${langData[currentLang].cartEmpty}</div>`;
                 document.getElementById('totalPrice').innerText = '0 EGP';
                 return;
             }
 
-            list.innerHTML = cart.map(p => {
-                total += p.price;
-                const name = currentLang === 'ar' ? p.name : p.name_en;
-                const imgSrc = p.img || 'https://via.placeholder.com/60?text=No+Image';
+            list.innerHTML = cart.map((p, idx) => {
+                total += (p.price * p.qty);
                 return `
-                    <div class="cart-item">
-                        <img src="${imgSrc}" alt="${name}" class="cart-item-img">
-                        <div class="cart-item-info">
-                            <div class="cart-item-name">${name}</div>
-                            <div class="cart-item-price">${p.price.toLocaleString()} EGP</div>
+                    <div style="display:flex; align-items:center; gap:12px; margin-bottom:15px; border-bottom:1px solid var(--border); padding-bottom:10px;">
+                        <img src="${p.img}" style="width:50px; height:50px; border-radius:8px; object-fit:cover;">
+                        <div style="flex:1">
+                            <div style="font-weight:600; font-size:0.9rem">${p.name}</div>
+                            <div style="color:var(--primary); font-weight:700">${p.price.toLocaleString()} EGP <span style="color:var(--secondary)">x ${p.qty}</span></div>
                         </div>
-                        <button class="cart-item-remove" onclick="removeFromCart(${p.id})" title="${translations[currentLang].removeItem}">
-                            <i class="fas fa-trash"></i>
-                        </button>
+                        <button onclick="removeFromCart(${idx})" style="background:none; border:none; color:red; cursor:pointer;"><i class="fas fa-trash"></i></button>
                     </div>
                 `;
             }).join('');
-
-            document.getElementById('totalPrice').innerText = `${total.toLocaleString()} EGP`;
+            document.getElementById('totalPrice').innerText = total.toLocaleString() + ' EGP';
         }
 
-        function completeOrder() {
-            if (cart.length === 0) return;
-            cart = [];
-            updateCart();
-            const toast = document.getElementById('toast');
-            toast.innerText = translations[currentLang].orderCompleted;
-            toast.style.background = '#2ecc71';
-            toast.style.display = 'block';
-            setTimeout(() => {
-                toast.style.display = 'none';
-                toast.innerText = translations[currentLang].addToCart + ' ✅';
-                toast.style.background = '#27ae60';
-            }, 2500);
-        }
+        function removeFromCart(idx) { cart.splice(idx, 1); updateCartUI(); }
 
-        function toggleCart() { 
-            document.getElementById('sideCart').classList.toggle('active'); 
+        function toggleLanguage() {
+            currentLang = currentLang === 'ar' ? 'en' : 'ar';
+            document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+            
+            const d = langData[currentLang];
+            document.getElementById('txt-nav-home').innerText = d.navHome;
+            document.getElementById('txt-nav-lang').innerText = d.navLang;
+            document.getElementById('txt-hero-title').innerText = d.heroTitle;
+            document.getElementById('txt-hero-desc').innerText = d.heroDesc;
+            
+            // ترجمة العناوين الرئيسية للأقسام
+            document.getElementById('txt-head-consumer').innerText = d.headConsumer;
+            document.getElementById('txt-head-worker').innerText = d.headWorker;
+            document.getElementById('txt-head-mega').innerText = d.headMega;
+            document.getElementById('txt-head-tech').innerText = d.headTech;
+            document.getElementById('txt-head-seeds').innerText = d.headSeeds;
+
+            document.getElementById('txt-cart-title').innerText = d.cartTitle;
+            document.getElementById('txt-cart-total').innerText = d.cartTotal;
+            document.getElementById('txt-cart-checkout').innerText = d.cartCheckout;
+            document.getElementById('txt-modal-head').innerText = d.modalHead;
+            document.getElementById('txt-modal-close').innerText = d.modalClose;
+            
+            init();
+            updateCartUI();
         }
 
         function toggleDarkMode() {
             isDarkMode = !isDarkMode;
-            document.body.classList.toggle('dark-mode', isDarkMode);
-            const btn = document.getElementById('darkModeBtn');
-            const icon = btn.querySelector('i');
-            const span = btn.querySelector('span');
-            if (isDarkMode) {
-                icon.className = 'fas fa-sun';
-                span.textContent = translations[currentLang].light;
-            } else {
-                icon.className = 'fas fa-moon';
-                span.textContent = translations[currentLang].dark;
-            }
+            document.body.classList.toggle('dark-mode');
+            document.getElementById('modeIcon').className = isDarkMode ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
         }
 
-        function toggleLanguage() {
-            currentLang = currentLang === 'ar' ? 'en' : 'ar';
-            
-            // Update direction
-            document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
-            document.documentElement.lang = currentLang;
-            
-            applyLanguage();
-            init();
+        function toggleCart() { document.getElementById('sideCart').classList.toggle('active'); }
+
+        // تحويل لصفحة المحفظة
+        function goToWallet() {
+            if (cart.length === 0) return;
+            window.location.href = "../wallet/wallet.html";
         }
 
-        function applyLanguage() {
-            // Update page title
-            document.title = translations[currentLang].pageTitle;
-            
-            // Update hero section
-            document.querySelector('.hero h1').textContent = translations[currentLang].heroTitle;
-            document.querySelector('.hero p').textContent = translations[currentLang].heroDesc;
-            
-            // Update section headers
-            const sectionHeaders = document.querySelectorAll('.section-info h2');
-            sectionHeaders[0].textContent = translations[currentLang].consumer;
-            sectionHeaders[1].textContent = translations[currentLang].worker;
-            sectionHeaders[2].textContent = translations[currentLang].mega;
-            sectionHeaders[3].textContent = translations[currentLang].tech;
-            sectionHeaders[4].textContent = translations[currentLang].seeds;
-
-            // Update cart elements
-            document.getElementById('cartTitle').textContent = translations[currentLang].yourCart;
-            document.getElementById('totalLabel').textContent = translations[currentLang].total;
-            document.getElementById('checkoutBtn').textContent = translations[currentLang].checkout;
-            document.getElementById('footerText').innerHTML = translations[currentLang].footer;
-            
-            // Update header buttons
-            const langBtn = document.getElementById('langToggleBtn');
-            langBtn.innerHTML = `<i class="fas fa-language"></i> <span>${translations[currentLang].langBtn}</span>`;
-
-            const modeBtn = document.getElementById('darkModeBtn');
-            const modeSpan = modeBtn.querySelector('span');
-            modeSpan.textContent = isDarkMode ? translations[currentLang].light : translations[currentLang].dark;
-            
-            // Update cart button text
-            const cartBtn = document.querySelector('.cart-btn span');
-            cartBtn.innerHTML = `${translations[currentLang].cart} (<span id="cartCount">${cart.length}</span>)`;
-            
-            // Update Home Button Text
-            const homeBtnText = document.getElementById('homeBtnText');
-            if(homeBtnText) homeBtnText.textContent = translations[currentLang].homeBtn;
-
-            // Update brand name
-            const brandSpan = document.querySelector('.brand-name span');
-            brandSpan.textContent = translations[currentLang].brand.split('-')[1] || 'tech';
-            
-            // Update cart display if open
-            if (document.getElementById('sideCart').classList.contains('active')) {
-                updateCart();
-            }
+        function openDetails(id) {
+            const p = storeData.find(x => x.id === id);
+            document.getElementById('modalTitle').innerText = currentLang === 'ar' ? p.name : p.name_en;
+            document.getElementById('modalList').innerHTML = p.items.map(i => `
+                <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px; background:rgba(0,0,0,0.03); padding:10px; border-radius:10px;">
+                    <i class="fas fa-check-circle" style="color:var(--secondary)"></i>
+                    <span>${currentLang === 'ar' ? i.txt : i.txt_en}</span>
+                </div>
+            `).join('');
+            document.getElementById('detailsModal').style.display = 'flex';
         }
+
+        function closeModal() { document.getElementById('detailsModal').style.display = 'none'; }
 
         window.onload = init;
     </script>
+
+    <!-- Firebase -->
     <script type="module">
-/* ================= Firebase ================= */
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-import {
-  getFirestore,
-  doc,
-  getDoc
-} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyCg8ej80A4VnHFK2iuXx4nhEt9Wtmf4ulU",
-  authDomain: "smart-farm-8d3f5.firebaseapp.com",
-  projectId: "smart-farm-8d3f5",
-  storageBucket: "smart-farm-8d3f5.appspot.com",
-  messagingSenderId: "317371842198",
-  appId: "1:317371842198:web:4765ea8c0036ae64b10cb7"
-};
+        const firebaseConfig = {
+            apiKey: "AIzaSyCg8ej80A4VnHFK2iuXx4nhEt9Wtmf4ulU",
+            authDomain: "smart-farm-8d3f5.firebaseapp.com",
+            projectId: "smart-farm-8d3f5",
+            storageBucket: "smart-farm-8d3f5.appspot.com",
+            messagingSenderId: "317371842198",
+            appId: "1:317371842198:web:4765ea8c0036ae64b10cb7"
+        };
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
 
-/* ================= Home Button Logic ================= */
-window.goHomeByRole = function () {
-  onAuthStateChanged(auth, async (user) => {
-    if (!user) {
-      // ❌ مش مسجّل دخول
-      window.location.href = "./signin.html";
-      return;
-    }
-
-    try {
-      const userRef = doc(db, "users", user.uid);
-      const userSnap = await getDoc(userRef);
-
-      if (!userSnap.exists()) {
-        window.location.href = "index.html";
-        return;
-      }
-
-      const userData = userSnap.data();
-      const role = userData.role;
-
-      // ✅ تحويل حسب الدور
-      switch (role) {
-        case "farmer":
-          window.location.href = "./farmer-ar.html";
-          break;
-
-        case "worker":
-          window.location.href = "./worker.html";
-          break;
-
-        case "investor":
-          window.location.href = "./investor.html";
-          break;
-
-
-      }
-
-    } catch (err) {
-      console.error("Role check error:", err);
-      window.location.href = "index.html";
-    }
-  });
-};
-</script>
-
+        window.goHomeByRole = function () {
+            onAuthStateChanged(auth, async (user) => {
+                if (!user) { window.location.href = "../signinsignup/signin.html"; return; }
+                try {
+                    const userSnap = await getDoc(doc(db, "users", user.uid));
+                    if (!userSnap.exists()) return;
+                    const role = userSnap.data().role;
+                    if (role === "farmer") window.location.href = "../farmer-ar.html";
+                    else if (role === "worker") window.location.href = "../worker.html";
+                    else if (role === "investor") window.location.href = "../investor.html";
+                } catch (e) { console.error(e); }
+            });
+        };
+    </script>
 </body>
 
 </html>
