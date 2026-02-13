@@ -10,113 +10,31 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Footer */
-    .site-footer {
-      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-      color: #fff;
-      padding: 4rem 0 1.5rem;
-    }
-
-    .footer-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 2.5rem;
-    }
-
-    .footer-brand img {
-      height: 55px;
-      margin-bottom: 1rem;
-      filter: brightness(0) invert(1);
-    }
-
-    .footer-brand p {
-      font-size: 0.95rem;
-      line-height: 1.7;
-      color: rgba(255,255,255,0.85);
-    }
-
-    .site-footer h4 {
-      font-size: 1.1rem;
-      margin-bottom: 1rem;
-    }
-
-    .footer-links ul {
-      list-style: none;
-      padding: 0;
-    }
-
-    .footer-links li {
-      margin-bottom: 0.6rem;
-    }
-
-    .footer-links a {
-      text-decoration: none;
-      color: rgba(255,255,255,0.85);
-      transition: 0.3s;
-    }
-
-    .footer-links a:hover {
-      color: var(--secondary);
-      padding-left: 5px;
-    }
-
-    .footer-contact p {
-      font-size: 0.95rem;
-      margin-bottom: 0.6rem;
-      color: rgba(255,255,255,0.85);
-    }
-
-    .footer-social {
-      margin-top: 1rem;
-      display: flex;
-      gap: 12px;
-    }
-
-    .footer-social a {
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.15);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-decoration: none;
-      font-size: 18px;
-      color: #fff;
-      transition: 0.3s;
-    }
-
-    .footer-social a:hover {
-      background: var(--secondary);
-      transform: translateY(-3px);
-    }
-
-    .footer-bottom {
-      text-align: center;
-      margin-top: 3rem;
-      padding-top: 1.2rem;
-      border-top: 1px solid rgba(255,255,255,0.15);
-      font-size: 0.9rem;
-      color: rgba(255,255,255,0.75);
-    }
-        /* ===== NAVBAR ===== */
+         /* ===== NAVBAR ===== */
         .navbar-main {
-            background: #0f4c5c;
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 95%;
-            height: 75px;
-            border-radius: 30px;
-            box-shadow: 0 6px 6px rgba(31, 38, 135, .37);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 30px;
-            z-index: 1000;
-            transition: 0.3s;
-        }
+    background: #0f4c5c;
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 95%;
+
+    /* بدل height */
+    min-height: 75px;
+    height: auto;
+
+    border-radius: 30px;
+    box-shadow: 0 6px 6px rgba(31, 38, 135, .37);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 30px; /* خلي padding رأسي عشان يسمح بالتمدد */
+    z-index: 1000;
+    transition: 0.3s;
+        flex-wrap: wrap;   /* 👈 مهم */
+
+}
+
 
         .btn-signin {
             background: #fff;
@@ -142,15 +60,12 @@
         .btn-signin:hover {
             transform: translateY(-2px);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
-            /* background: linear-gradient(135deg, #0d6efd, #1fb6a6); */
         }
 
         /* Active */
         .btn-signin:active {
             transform: scale(0.96);
         }
-
-        /* body.light .navbar-main { box-shadow: 0 6px 6px rgba(0,0,0,0.1); } */
 
         /* LOGO */
         .navbar-logo {
@@ -160,6 +75,7 @@
             font-weight: 700;
             font-size: 22px;
             transition: 0.3s;
+            z-index: 1001;
         }
 
         .navbar-logo img {
@@ -179,19 +95,28 @@
             color: #fff;
         }
 
-        /* CENTER LINKS */
-        .navbar-links {
-            list-style: none;
-            display: flex;
-            gap: 18px;
-            align-items: center;
-        }
+        /* CENTER LINKS - Container (Modified for Responsiveness) */
+       .navbar-center {
+    flex: 1;                     /* تاخد المساحة بين اللوجو واليمين */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    transform: none;
+}
 
-        .navbar-center {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-        }
+
+
+        .navbar-links {
+    list-style: none;
+    display: flex;
+    gap: 18px;
+    align-items: center;
+        justify-content: center;
+
+    flex-wrap: wrap;   /* 👈 يخلي اللينكات تلف وتكسر سطر */
+}
+
 
         .navbar-links a {
             color: #fff;
@@ -256,6 +181,7 @@
             padding: 6px 14px;
             border-radius: 20px;
             transition: 0.3s;
+            color: #fff; /* Ensure text color is set */
         }
 
         .user-name:hover {
@@ -300,10 +226,94 @@
             color: #fff;
         }
 
-        /* body.dark .navbar-main { background: #0a2e3a; } */
         body.dark .btn {
             border-color: #fff;
             color: #fff;
+        }
+
+        /* ================= RESPONSIVE & MENU TOGGLE (From Reference) ================= */
+        
+        .menu-toggle {
+            display: none; /* مخفي في الديسكتوب */
+            font-size: 24px;
+            background: none;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            padding: 5px;
+            z-index: 1002;
+        }
+
+        @media (max-width: 768px) {
+            .navbar-main {
+                height: 70px; /* تقليل الارتفاع قليلاً للموبايل */
+                padding: 0 15px;
+                width: 90%; /* Adjust width for small screens */
+            }
+
+            .menu-toggle {
+                display: block; /* إظهار زر القائمة */
+            }
+
+            /* إخفاء الروابط الوسطى في العرض العادي */
+            .navbar-center {
+                display: none; 
+                position: absolute;
+                top: 100%; /* تظهر مباشرة تحت النافبار */
+                left: 0;
+                width: 100%;
+                background: #0f4c5c;
+                padding: 20px 0;
+                border-radius: 0 0 15px 15px; /* زوايا أسفل الشريط */
+                box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+                flex-direction: column;
+                justify-content: flex-start;
+                z-index: 999;
+                transform: none; /* إلغاء التحريك الأفقي */
+            }
+
+            /* إظهار الروابط عند تفعيل الكلاس active */
+            .navbar-center.active {
+                display: flex;
+                animation: slideDown 0.3s ease;
+            }
+
+            .navbar-links {
+                flex-direction: column;
+                width: 100%;
+                gap: 5px;
+            }
+
+            .navbar-links li {
+                width: 100%;
+                text-align: center;
+            }
+
+            .navbar-links a {
+                display: block;
+                padding: 12px;
+                font-size: 16px;
+                width: 100%;
+            }
+
+            /* ضبط العناصر اليمنى (الأزرار) */
+            .navbar-right {
+                gap: 8px;
+            }
+
+            /* إخفاء بعض الأزرار في الموبايل إذا لزم الأمر لاختصار المساحة */
+            /* .btn-signin { display: none; }  */
+
+            /* في الوضع المظلم للموبايل */
+            body.dark .navbar-center {
+                background: #0a2e3a;
+            }
+        }
+
+        /* حركة بسيطة للقائمة */
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-100px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
@@ -317,26 +327,29 @@
             <span id="siteName" data-key="siteName">زراعة تك</span>
         </div>
 
-        <!-- LOGGED IN LINKS -->
-        <ul class="navbar-links navbar-center" id="authLinks" style="display:none">
-            <li><a href="animals.html" data-key="nav_animals">Animals</a></li>
-            <li><a href="consumer-market.html" data-key="nav_marketplace">Marketplace</a></li>
-            <li><a href="tasks.html" data-key="nav_community">Community</a></li>
-            <li><a href="contact-about.html" data-key="nav_contact">contact us</a></li>
-            <li><a href="banks.html" data-key="nav_banks">banks</a></li>
-            <li><a href="offer.html" data-key="nav_packages">packages</a></li>
+        <!-- CENTER LINKS WRAPPER (Added for Responsiveness) -->
+        <div class="navbar-center" id="navbarCenter">
+            <!-- LOGGED IN LINKS -->
+            <ul class="navbar-links" id="authLinks" style="display:none">
+                <li><a href="animals.html" data-key="nav_animals">Animals</a></li>
+                <li><a href="consumer-market.html" data-key="nav_marketplace">Marketplace</a></li>
+                <li><a href="tasks.html" data-key="nav_community">Community</a></li>
+                <li><a href="contact-about.html" data-key="nav_contact">contact us</a></li>
+                <li><a href="offer.html" data-key="nav_packages">packages</a></li>
+            </ul>
 
-
-
-        </ul>
-
-        <!-- GUEST LINKS -->
-        <ul class="navbar-links navbar-center" id="guestLinks" style="display:flex">
-            <li><a href="contact-about.html" data-key="nav_about">About Us</a></li>
-        </ul>
+            <!-- GUEST LINKS -->
+            <ul class="navbar-links" id="guestLinks" style="display:flex">
+                <li><a href="contact-about.html" data-key="nav_about">About Us</a></li>
+            </ul>
+        </div>
 
         <!-- RIGHT -->
         <div class="navbar-right">
+            <!-- HAMBURGER MENU TOGGLE (Added) -->
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
 
             <button id="langToggle" class="btn">EN</button>
             <button id="themeToggle" class="btn">☀️</button>
@@ -355,7 +368,6 @@
                     <span data-key="nav_username">Username</span>
                     <i class="fas fa-caret-down"></i>
                 </div>
-
 
                 <div class="user-dropdown" id="userDropdown">
                     <a href="./profile.html" data-key="profileLink">
@@ -388,7 +400,7 @@
             </p>
             <div class="hero-actions">
 
-                <a href="#" class="btn-ghost" data-key="hero_btn2" onclick="showRegistrationModal()">
+                <a href="./investment.html" class="btn-ghost" data-key="hero_btn2" >
                     استكشف الفرص 💡
                 </a>
             </div>
@@ -1423,59 +1435,33 @@
 
         });
     </script>
-<footer class="site-footer">
-  <div class="container footer-grid">
+ <script>
+        document.addEventListener("DOMContentLoaded", function () {
 
-    <div class="footer-brand">
-      <img src="./smart_farm_no_bg-removebg-preview.png" alt="Zera3a-Tech Logo">
-      <p>
-        Zera3a-Tech is a smart agricultural ecosystem connecting farmers, buyers,
-        investors, and suppliers through modern technology.
-      </p>
-    </div>
+            const navbarImage = document.getElementById("navbarProfileImage");
+            const defaultIcon = document.getElementById("defaultUserIcon");
 
-    <div class="footer-links">
-      <h4>Platform</h4>
-      <ul>
-        <li><a href="#">Marketplace</a></li>
-        <li><a href="#">Crop Tracking</a></li>
-        <li><a href="#">Cost Calculator</a></li>
-        <li><a href="#">Community</a></li>
-      </ul>
-    </div>
+            const savedImage = localStorage.getItem("profileImage");
 
-    <div class="footer-links">
-      <h4>Resources</h4>
-      <ul>
-        <li><a href="#">Farming Tips</a></li>
-        <li><a href="#">Livestock Guide</a></li>
-        <li><a href="#">Expert Advice</a></li>
-        <li><a href="#">Investment Opportunities</a></li>
-      </ul>
-    </div>
+            if (savedImage) {
+                navbarImage.src = savedImage;
+                navbarImage.style.display = "inline-block";
+                defaultIcon.style.display = "none";
+            }
 
-    <div class="footer-contact">
-      <h4>Contact</h4>
-      <p>📍 Cairo, Egypt</p>
-      <p>📞 +20 123 456 7890</p>
-      <p>📧 support@zera3a-tech.com</p>
+        });
+        
+        // ===== NEW RESPONSIVE LOGIC =====
+        const menuToggle = document.getElementById("menuToggle");
+        const navbarCenter = document.getElementById("navbarCenter");
 
-      <div class="footer-social">
-        <a href="#">🌐</a>
-        <a href="#">📘</a>
-        <a href="#">🐦</a>
-        <a href="#">📸</a>
-      </div>
-    </div>
+        if(menuToggle && navbarCenter){
+            menuToggle.addEventListener("click", function () {
+                navbarCenter.classList.toggle("active");
+            });
+        }
+    </script>
 
-  </div>
-
-  <div class="footer-bottom">
-    © 2025 Zera3a-Tech. All rights reserved.
-  </div>
-</footer>
 </body>
 
-
 </html>
-
