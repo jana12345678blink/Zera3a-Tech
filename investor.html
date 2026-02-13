@@ -5,35 +5,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Smart Farm - منصة الاستثمار الزراعي الذكي</title>
-    <link rel="stylesheet" href="./hom2.css">
+    <link rel="stylesheet" href="./home2/hom2.css">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-         /* ===== NAVBAR ===== */
+        /* ===== NAVBAR ===== */
         .navbar-main {
-    background: #0f4c5c;
-    position: fixed;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 95%;
+            background: #0f4c5c;
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 95%;
 
-    /* بدل height */
-    min-height: 75px;
-    height: auto;
+            /* بدل height */
+            min-height: 75px;
+            height: auto;
 
-    border-radius: 30px;
-    box-shadow: 0 6px 6px rgba(31, 38, 135, .37);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 30px; /* خلي padding رأسي عشان يسمح بالتمدد */
-    z-index: 1000;
-    transition: 0.3s;
-        flex-wrap: wrap;   /* 👈 مهم */
+            border-radius: 30px;
+            box-shadow: 0 6px 6px rgba(31, 38, 135, .37);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 30px;
+            /* خلي padding رأسي عشان يسمح بالتمدد */
+            z-index: 1000;
+            transition: 0.3s;
+            flex-wrap: wrap;
+            /* 👈 مهم */
 
-}
+        }
 
 
         .btn-signin {
@@ -96,26 +98,28 @@
         }
 
         /* CENTER LINKS - Container (Modified for Responsiveness) */
-       .navbar-center {
-    flex: 1;                     /* تاخد المساحة بين اللوجو واليمين */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    transform: none;
-}
+        .navbar-center {
+            flex: 1;
+            /* تاخد المساحة بين اللوجو واليمين */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            transform: none;
+        }
 
 
 
         .navbar-links {
-    list-style: none;
-    display: flex;
-    gap: 18px;
-    align-items: center;
-        justify-content: center;
+            list-style: none;
+            display: flex;
+            gap: 18px;
+            align-items: center;
+            justify-content: center;
 
-    flex-wrap: wrap;   /* 👈 يخلي اللينكات تلف وتكسر سطر */
-}
+            flex-wrap: wrap;
+            /* 👈 يخلي اللينكات تلف وتكسر سطر */
+        }
 
 
         .navbar-links a {
@@ -181,7 +185,8 @@
             padding: 6px 14px;
             border-radius: 20px;
             transition: 0.3s;
-            color: #fff; /* Ensure text color is set */
+            color: #fff;
+            /* Ensure text color is set */
         }
 
         .user-name:hover {
@@ -232,9 +237,10 @@
         }
 
         /* ================= RESPONSIVE & MENU TOGGLE (From Reference) ================= */
-        
+
         .menu-toggle {
-            display: none; /* مخفي في الديسكتوب */
+            display: none;
+            /* مخفي في الديسكتوب */
             font-size: 24px;
             background: none;
             border: none;
@@ -246,30 +252,36 @@
 
         @media (max-width: 768px) {
             .navbar-main {
-                height: 70px; /* تقليل الارتفاع قليلاً للموبايل */
+                height: 70px;
+                /* تقليل الارتفاع قليلاً للموبايل */
                 padding: 0 15px;
-                width: 90%; /* Adjust width for small screens */
+                width: 90%;
+                /* Adjust width for small screens */
             }
 
             .menu-toggle {
-                display: block; /* إظهار زر القائمة */
+                display: block;
+                /* إظهار زر القائمة */
             }
 
             /* إخفاء الروابط الوسطى في العرض العادي */
             .navbar-center {
-                display: none; 
+                display: none;
                 position: absolute;
-                top: 100%; /* تظهر مباشرة تحت النافبار */
+                top: 100%;
+                /* تظهر مباشرة تحت النافبار */
                 left: 0;
                 width: 100%;
                 background: #0f4c5c;
                 padding: 20px 0;
-                border-radius: 0 0 15px 15px; /* زوايا أسفل الشريط */
-                box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+                border-radius: 0 0 15px 15px;
+                /* زوايا أسفل الشريط */
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
                 flex-direction: column;
                 justify-content: flex-start;
                 z-index: 999;
-                transform: none; /* إلغاء التحريك الأفقي */
+                transform: none;
+                /* إلغاء التحريك الأفقي */
             }
 
             /* إظهار الروابط عند تفعيل الكلاس active */
@@ -312,8 +324,15 @@
 
         /* حركة بسيطة للقائمة */
         @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-100px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(-100px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     </style>
 </head>
@@ -400,7 +419,7 @@
             </p>
             <div class="hero-actions">
 
-                <a href="./investment.html" class="btn-ghost" data-key="hero_btn2" >
+                <a href="./investment.html" class="btn-ghost" data-key="hero_btn2">
                     استكشف الفرص 💡
                 </a>
             </div>
@@ -1297,7 +1316,7 @@
         </div>
     </div>
 
-    <script src="./hom2.js"></script>
+    <script src="./home2/hom2.js"></script>
     <script type="module">
         /* =========================
            🔥 Firebase Imports
@@ -1357,7 +1376,7 @@
 
                 if (!userSnap.exists()) {
                     await signOut(auth);
-                    location.href = "./signin.html";
+                    location.href = "././signinsignup/signin.html";
                     return;
                 }
 
@@ -1383,7 +1402,7 @@
             } catch (err) {
                 console.error(err);
                 await signOut(auth);
-                location.href = "./signin.html";
+                location.href = "././signinsignup/signin.html";
             }
         });
 
@@ -1398,7 +1417,7 @@
             } else if (role === "investor") {
                 location.href = "investor.html";
             } else {
-                location.href = "./signin.html";
+                location.href = "././signinsignup/signin.html";
             }
         }
 
@@ -1416,10 +1435,10 @@
         logoutBtn?.addEventListener("click", async (e) => {
             e.preventDefault();
             await signOut(auth);
-            location.href = "./signin.html";
+            location.href = "./signinsignup/signin.html";
         });
     </script>
-      <script>
+    <script>
         document.addEventListener("DOMContentLoaded", function () {
 
             const navbarImage = document.getElementById("navbarProfileImage");
@@ -1435,32 +1454,33 @@
 
         });
     </script>
- <script>
-        document.addEventListener("DOMContentLoaded", function () {
+    <script>
+document.addEventListener("DOMContentLoaded", function () {
 
-            const navbarImage = document.getElementById("navbarProfileImage");
-            const defaultIcon = document.getElementById("defaultUserIcon");
+    const navbarImage = document.getElementById("navbarProfileImage");
+    const defaultIcon = document.getElementById("defaultUserIcon");
 
-            const savedImage = localStorage.getItem("profileImage");
+    const savedImage = localStorage.getItem("profileImage");
 
-            if (savedImage) {
-                navbarImage.src = savedImage;
-                navbarImage.style.display = "inline-block";
-                defaultIcon.style.display = "none";
-            }
+    if (savedImage && navbarImage && defaultIcon) {
+        navbarImage.src = savedImage;
+        navbarImage.style.display = "inline-block";
+        defaultIcon.style.display = "none";
+    }
 
+    // Responsive Menu
+    const menuToggle = document.getElementById("menuToggle");
+    const navbarCenter = document.getElementById("navbarCenter");
+
+    if(menuToggle && navbarCenter){
+        menuToggle.addEventListener("click", function () {
+            navbarCenter.classList.toggle("active");
         });
-        
-        // ===== NEW RESPONSIVE LOGIC =====
-        const menuToggle = document.getElementById("menuToggle");
-        const navbarCenter = document.getElementById("navbarCenter");
+    }
 
-        if(menuToggle && navbarCenter){
-            menuToggle.addEventListener("click", function () {
-                navbarCenter.classList.toggle("active");
-            });
-        }
-    </script>
+});
+</script>
+
 
 </body>
 
