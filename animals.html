@@ -124,7 +124,7 @@
 
     <!-- Floating Controls -->
     <div class="fixed top-6 left-0 right-0 z-50 px-4 sm:px-6 flex justify-between items-start pointer-events-none">
-        <button class="pointer-events-auto flex items-center gap-2 px-5 py-2.5 bg-white/40 dark:bg-cardbg/60 backdrop-blur-md text-primary dark:text-accent rounded-full shadow-lg border border-white/20 dark:border-gray-700 hover:bg-primary hover:text-white transition-all font-bold text-sm group">
+        <button id="backBtn" class="pointer-events-auto flex items-center gap-2 px-5 py-2.5 bg-white/40 dark:bg-cardbg/60 backdrop-blur-md text-primary dark:text-accent rounded-full shadow-lg border border-white/20 dark:border-gray-700 hover:bg-primary hover:text-white transition-all font-bold text-sm group">
             <i class="fa-solid fa-arrow-right group-hover:-translate-x-1 transition-transform rtl:group-hover:translate-x-1 rtl:rotate-180" data-dir-icon></i>
             <span data-i18n="btn_back_home">Back Home</span>
         </button>
@@ -967,5 +967,66 @@
         // Run
         init();
     </script>
+     <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+    import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCg8ej80A4VnHFK2iuXx4nhEt9Wtmf4ulU",
+      authDomain: "smart-farm-8d3f5.firebaseapp.com",
+      projectId: "smart-farm-8d3f5",
+      storageBucket: "smart-farm-8d3f5.appspot.com",
+      messagingSenderId: "317371842198",
+      appId: "1:317371842198:web:4765ea8c0036ae64b10cb7"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    const backBtn = document.getElementById("backBtn");
+
+    backBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+
+      onAuthStateChanged(auth, async (user) => {
+
+        // ❌ مش مسجل دخول
+        if (!user) {
+          window.location.href = "./signin.html";
+          return;
+        }
+
+        try {
+          const userRef = doc(db, "users", user.uid);
+          const userSnap = await getDoc(userRef);
+
+          if (!userSnap.exists()) {
+            window.location.href = "./signin.html";
+            return;
+          }
+
+          const role = userSnap.data().role;
+
+          // ✅ تحويل حسب الدور
+          if (role === "farmer") {
+            window.location.href = "./farmer-ar.html";
+          }
+          else if (role === "investor") {
+            window.location.href = "./investor.html";
+          }
+          else {
+            window.location.href = "./signin.html";
+          }
+
+        } catch (error) {
+          console.error("Firebase Error:", error);
+          window.location.href = "./signin.html";
+        }
+      });
+    });
+  </script> 
+         
 </body>
 </html>
