@@ -3,256 +3,519 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Realtime Chat - Modern UI</title>
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
-    /* ==================== CSS VARIABLES & THEMES ==================== */
+    /* ==================== VARIABLES & THEMES ==================== */
     :root {
       /* Light Theme */
-      --primary-color: #0F4C5C;
-      --primary-gradient: linear-gradient(135deg, #0F4C5C 0%, #0F4C5C 100%);
-      --accent-color: #FF6F61;
+      --primary: #0f4c5c;
+      --primary-light: #E07A5F;
+      --primary-bg: #eefeef;
+      --bg-body: #d1d7db;
+      --bg-card: #ffffff;
+      --bg-sidebar: #ffffff;
+      --bg-chat: #efeae2; /* Subtle pattern color */
+      --text-main: #111b21;
+      --text-secondary: #667781;
+      --border: #e9edef;
+      --input-bg: #f0f2f5;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
       
-      --bg-body: #F0F2F5;
-      --bg-card: #FFFFFF;
-      --bg-sidebar: #FFFFFF;
-      --bg-input: #F7F9FC;
+      --msg-sent-bg: #d9fdd3;
+      --msg-received-bg: #ffffff;
       
-      --border-color: #E4E6EB;
-      --text-primary: #1C1E21;
-      --text-secondary: #65676B;
-      
-      --bubble-sent: #00897B;
-      --bubble-sent-text: #ffffff;
-      --bubble-received: #F0F2F5;
-      --bubble-received-text: #1C1E21;
-      
-      --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
-      --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
-      --shadow-lg: 0 10px 25px rgba(0,0,0,0.1);
-      
-      --online-status: #31A24C;
-      --radius-lg: 20px;
-      --radius-md: 12px;
-      --radius-full: 50%;
+      --online-color: #00a884;
     }
 
-    /* Dark Theme */
     [data-theme="dark"] {
-      --primary-color: #4DB6AC;
-      --primary-gradient: linear-gradient(135deg, #80CBC4 0%, #4DB6AC 100%);
-      --accent-color: #FF8A65;
-      
-      --bg-body: #121212;
-      --bg-card: #1E1E1E;
-      --bg-sidebar: #181818;
-      --bg-input: #2C2C2C;
-      
-      --border-color: #333333;
-      --text-primary: #E4E6EB;
-      --text-secondary: #B0B3B8;
-      
-      --bubble-sent: #4DB6AC;
-      --bubble-sent-text: #121212;
-      --bubble-received: #2C2C2C;
-      --bubble-received-text: #E4E6EB;
-      
-      --shadow-sm: 0 2px 4px rgba(0,0,0,0.3);
+      /* Dark Theme */
+      --primary: #0f4c5c;
+      --primary-light: #0f4c5c;
+      --primary-bg: #202c33;
+      --bg-body: #0b141a;
+      --bg-card: #202c33;
+      --bg-sidebar: #111b21;
+      --bg-chat: #0b141a;
+      --text-main: #e9edef;
+      --text-secondary: #8696a0;
+      --border: #222e35;
+      --input-bg: #2a3942;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.2);
       --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+
+      --msg-sent-bg: #0f4c5c;
+      --msg-received-bg: #202c33;
     }
 
-    /* RTL Support */
-    [dir="rtl"] { font-family: 'Tajawal', sans-serif; }
-    [dir="ltr"] { font-family: 'Poppins', sans-serif; }
+    * { margin: 0; padding: 0; box-sizing: border-box; outline: none; -webkit-tap-highlight-color: transparent; }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      height: 100%;
+      width: 100%;
+      font-family: 'Poppins', 'Tajawal', sans-serif;
+      background-color: var(--bg-body);
+      overflow: hidden;
+      transition: background-color 0.3s ease;
+    }
 
     body {
-      background-color: var(--bg-body);
-      color: var(--text-primary);
-      height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      transition: background 0.3s ease, color 0.3s ease;
-      overflow: hidden;
     }
 
     /* ==================== LAYOUT ==================== */
     .app-container {
-      width: 95%;
-      max-width: 1400px;
-      height: 92vh;
+      width: 100%;
+      height: 100%;
+      max-width: 1600px;
       background: var(--bg-card);
-      border-radius: var(--radius-lg);
-      box-shadow: var(--shadow-lg);
       display: flex;
       overflow: hidden;
-      position: relative;
+      box-shadow: var(--shadow-md);
+    }
+
+    @media (min-width: 1025px) {
+      .app-container {
+        height: 95vh;
+        width: 95vw;
+        border-radius: 4px; /* Slight rounded corners on desktop */
+      }
     }
 
     /* ==================== SIDEBAR ==================== */
     .sidebar {
-      width: 320px;
+      width: 380px;
+      min-width: 300px;
       background: var(--bg-sidebar);
-      border-right: 1px solid var(--border-color);
+      border-right: 1px solid var(--border);
       display: flex;
       flex-direction: column;
       transition: transform 0.3s ease;
       z-index: 10;
     }
 
-    [dir="rtl"] .sidebar { border-right: none; border-left: 1px solid var(--border-color); }
-
-    .sidebar-header { padding: 20px; border-bottom: 1px solid var(--border-color); }
+    /* Header Sidebar */
+    .sidebar-header {
+      padding: 16px;
+      background: var(--bg-sidebar);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
 
     .sidebar-title {
-      font-size: 1.2rem;
+      font-size: 1.4rem;
       font-weight: 700;
-      color: var(--primary-color);
-      margin-bottom: 15px;
+      color: var(--primary);
       display: flex;
       align-items: center;
       gap: 10px;
     }
 
+    .search-box {
+      position: relative;
+      width: 100%;
+    }
+
     #searchUser {
       width: 100%;
-      padding: 12px 15px 12px 40px;
-      border-radius: var(--radius-md);
-      border: 1px solid var(--border-color);
-      background: var(--bg-input);
-      color: var(--text-primary);
-      font-size: 0.9rem;
-      outline: none;
-      transition: all 0.2s;
-      position: relative;
+      padding: 10px 40px 10px 16px; /* Space for icon */
+      border-radius: 8px;
+      border: none;
+      background: var(--input-bg);
+      color: var(--text-main);
+      font-size: 0.95rem;
+      transition: 0.2s;
     }
-    [dir="rtl"] #searchUser { padding: 12px 40px 12px 15px; }
-
-    #searchUser:focus { border-color: var(--primary-color); box-shadow: 0 0 0 3px rgba(0, 137, 123, 0.1); }
+    
+    /* RTL Adjustments for Search */
+    [dir="rtl"] #searchUser {
+      padding: 10px 16px 10px 40px;
+    }
 
     .search-icon {
       position: absolute;
-      top: 78px; left: 32px;
-      color: var(--text-secondary); font-size: 0.9rem; pointer-events: none;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-secondary);
+      pointer-events: none;
     }
-    [dir="rtl"] .search-icon { left: auto; right: 32px; }
+    [dir="ltr"] .search-icon { right: 12px; }
+    [dir="rtl"] .search-icon { left: 12px; }
 
-    .user-list { flex: 1; overflow-y: auto; padding: 10px; }
+    /* User List */
+    .user-list {
+      flex: 1;
+      overflow-y: auto;
+      padding: 8px;
+    }
 
+    /* Custom Scrollbar */
     ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 10px; }
-    [data-theme="dark"] ::-webkit-scrollbar-thumb { background: #444; }
+    ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.2); border-radius: 3px; }
+    [data-theme="dark"] ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); }
 
     .user-item {
-      display: flex; align-items: center; padding: 12px; gap: 12px;
-      cursor: pointer; border-radius: var(--radius-md);
-      transition: all 0.2s ease; margin-bottom: 5px; border: 1px solid transparent;
+      display: flex;
+      align-items: center;
+      padding: 12px;
+      gap: 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-bottom: 2px;
     }
-    .user-item:hover { background: var(--bg-input); }
-    .user-item.active { background: rgba(0, 137, 123, 0.08); border-color: rgba(0, 137, 123, 0.2); }
 
-    /* Avatar Styles */
+    .user-item:hover { background-color: rgba(0,0,0,0.04); }
+    [data-theme="dark"] .user-item:hover { background-color: rgba(255,255,255,0.04); }
+
+    .user-item.active {
+      background-color: rgba(0, 168, 132, 0.15);
+    }
+
+    /* Avatar */
     .avatar-small {
-      width: 48px; height: 48px; border-radius: var(--radius-full);
-      object-fit: cover; border: 2px solid var(--bg-card);
-      flex-shrink: 0; /* منع التصغير */
-    }
-
-    /* NEW: Avatar with Letter Style */
-    .avatar-letter {
+      width: 48px;
+      height: 48px;
+      min-width: 48px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #0f4c5c, #013846);
+      color: #fff;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-weight: 700;
-      font-size: 1.2rem;
-      color: #fff;
-      text-transform: uppercase;
-      background: var(--primary-gradient);
+      font-weight: 600;
+      font-size: 1.1rem;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      position: relative;
     }
 
-    .user-info { flex: 1; overflow: hidden; }
-    .user-name { font-weight: 600; color: var(--text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .user-status-text { font-size: 0.8rem; color: var(--online-status); display: flex; align-items: center; gap: 4px; }
+    .user-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .user-name {
+      font-weight: 600;
+      font-size: 1rem;
+      color: var(--text-main);
+      margin-bottom: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .user-status-text {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      background-color: var(--online-color);
+      border-radius: 50%;
+      display: inline-block;
+    }
 
     /* ==================== MAIN CHAT ==================== */
-    .main-chat { flex: 1; display: flex; flex-direction: column; background: var(--bg-body); position: relative; }
-
-    .chat-header {
-      padding: 15px 25px; background: var(--bg-card); border-bottom: 1px solid var(--border-color);
-      display: flex; justify-content: space-between; align-items: center; box-shadow: var(--shadow-sm); z-index: 5;
+    .main-chat {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background-color: var(--bg-chat);
+      /* Subtle Doodle Pattern (Optional CSS Pattern) */
+      background-image: url("https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png");
+      background-blend-mode: overlay;
+      position: relative;
+    }
+    
+    [data-theme="dark"] .main-chat {
+        background-blend-mode: soft-light;
+        background-color: #0b141a;
     }
 
-    .header-left { display: flex; align-items: center; gap: 15px; }
+    /* Header */
+    .chat-header {
+      padding: 10px 16px;
+      background: var(--bg-sidebar);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 60px;
+      z-index: 5;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex: 1;
+    }
 
     .back-btn {
-      background: transparent; border: none; color: var(--text-secondary);
-      cursor: pointer; font-size: 1.1rem; padding: 8px; border-radius: 50%;
-      transition: background 0.2s; display: flex; align-items: center; gap: 5px;
+      background: none;
+      border: none;
+      color: var(--text-main);
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px;
     }
-    .back-btn:hover { background: var(--bg-input); color: var(--primary-color); }
-    .back-label { font-size: 0.9rem; font-weight: 600; display: none; }
-    @media (max-width: 768px) { .back-label { display: block; } }
 
-    .chat-user-details { display: flex; flex-direction: column; }
-    .chat-user-name { font-weight: 700; color: var(--text-primary); font-size: 1.05rem; }
-    .chat-meta { font-size: 0.8rem; color: var(--text-secondary); display: flex; align-items: center; gap: 5px; }
-    .status-dot { width: 8px; height: 8px; background: var(--online-status); border-radius: 50%; display: inline-block; }
+    .chat-user-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+    }
 
-    .header-actions { display: flex; gap: 10px; }
+    .chat-user-name {
+      font-weight: 600;
+      font-size: 1rem;
+      color: var(--text-main);
+    }
+
+    .chat-meta {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 8px;
+    }
+
     .icon-btn {
-      background: transparent; border: none; color: var(--text-secondary);
-      width: 40px; height: 40px; border-radius: 50%; cursor: pointer;
-      transition: all 0.2s; display: flex; align-items: center; justify-content: center; font-size: 1.1rem;
+      width: 40px;
+      height: 40px;
+      border: none;
+      border-radius: 50%;
+      background: transparent;
+      color: var(--text-secondary);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      transition: 0.2s;
     }
-    .icon-btn:hover { background: var(--bg-input); color: var(--primary-color); transform: translateY(-2px); }
 
-    .chat-area { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; background-image: radial-gradient(var(--border-color) 1px, transparent 1px); background-size: 20px 20px; }
+    .icon-btn:hover {
+      background-color: rgba(0,0,0,0.05);
+      color: var(--primary);
+    }
+    [data-theme="dark"] .icon-btn:hover { background-color: rgba(255,255,255,0.1); }
 
+    /* ==================== CHAT AREA ==================== */
+    .chat-area {
+      flex: 1;
+      padding: 20px 5%;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    /* Empty State */
+    .empty-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      color: var(--text-secondary);
+      text-align: center;
+      background: var(--bg-card);
+      border-bottom: 6px solid var(--primary);
+      margin: 20px;
+      border-radius: 8px;
+    }
+    
+    .empty-state i {
+      font-size: 4rem;
+      margin-bottom: 15px;
+      color: var(--primary);
+      opacity: 0.8;
+    }
+
+    /* Message Bubbles */
     .msg-bubble {
-      max-width: 70%; padding: 12px 16px; position: relative; font-size: 0.95rem; line-height: 1.5;
-      animation: msgSlide 0.3s ease-out forwards; word-wrap: break-word;
+      max-width: 65%;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      line-height: 1.4;
+      position: relative;
+      box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+      word-wrap: break-word;
+      animation: fadeIn 0.3s ease;
     }
-    @keyframes msgSlide { from { opacity: 0; transform: translateY(10px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
     .msg-bubble.sent {
-      align-self: flex-end; background: var(--bubble-sent); color: var(--bubble-sent-text);
-      border-radius: 18px 18px 4px 18px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      align-self: flex-end;
+      background: var(--msg-sent-bg);
+      color: var(--text-main);
+      border-top-right-radius: 0;
     }
+
     .msg-bubble.received {
-      align-self: flex-start; background: var(--bubble-received); color: var(--bubble-received-text);
-      border-radius: 18px 18px 18px 4px; border: 1px solid var(--border-color);
+      align-self: flex-start;
+      background: var(--msg-received-bg);
+      color: var(--text-main);
+      border-top-left-radius: 0;
     }
-    [dir="rtl"] .msg-bubble.sent { border-radius: 18px 18px 18px 4px; }
-    [dir="rtl"] .msg-bubble.received { border-radius: 18px 18px 4px 18px; }
 
-    .msg-sender { font-size: 0.75rem; font-weight: 700; margin-bottom: 4px; opacity: 0.8; display: block; }
-    .msg-time { font-size: 0.7rem; opacity: 0.7; margin-top: 5px; display: block; text-align: right; }
+    /* RTL Flip for bubbles */
+    [dir="rtl"] .msg-bubble.sent {
+      border-top-right-radius: 8px;
+      border-top-left-radius: 0;
+    }
+    [dir="rtl"] .msg-bubble.received {
+      border-top-left-radius: 8px;
+      border-top-right-radius: 0;
+    }
 
-    .input-area { padding: 20px; background: var(--bg-card); border-top: 1px solid var(--border-color); display: flex; align-items: center; gap: 12px; }
-    .input-wrapper { flex: 1; background: var(--bg-input); border-radius: 30px; padding: 12px 20px; display: flex; align-items: center; gap: 10px; border: 1px solid transparent; transition: border 0.2s; }
-    .input-wrapper:focus-within { border-color: var(--primary-color); background: var(--bg-card); }
-    .input-field { border: none; background: transparent; width: 100%; outline: none; color: var(--text-primary); font-size: 1rem; }
+    .msg-sender {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--primary); /* Use primary color for sender name in received msg */
+      margin-bottom: 2px;
+      display: block;
+    }
+
+    .msg-time {
+      display: block;
+      font-size: 0.65rem;
+      color: var(--text-secondary);
+      text-align: end;
+      margin-top: 4px;
+    }
+
+    /* ==================== INPUT AREA ==================== */
+    .input-area {
+      padding: 10px 16px;
+      background: var(--bg-sidebar);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 5;
+    }
+
+    .input-wrapper {
+      flex: 1;
+      background: var(--input-bg);
+      border-radius: 8px;
+      padding: 9px 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .input-field {
+      border: none;
+      background: transparent;
+      width: 100%;
+      color: var(--text-main);
+      font-size: 1rem;
+      font-family: inherit;
+    }
+    
+    .input-field::placeholder { color: var(--text-secondary); }
+
+    .action-icon {
+      color: var(--text-secondary);
+      cursor: pointer;
+      font-size: 1.1rem;
+      transition: 0.2s;
+    }
+    .action-icon:hover { color: var(--text-main); }
+
     .send-btn {
-      width: 50px; height: 50px; border-radius: 50%; background: var(--primary-gradient); color: #fff;
-      border: none; cursor: pointer; display: flex; align-items: center; justify-content: center;
-      font-size: 1.2rem; box-shadow: 0 4px 10px rgba(0, 137, 123, 0.3); transition: transform 0.2s;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: 0.2s;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
-    .send-btn:hover { transform: scale(1.05); } .send-btn:active { transform: scale(0.95); }
 
-    .empty-state { display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%; color: var(--text-secondary); text-align: center; }
-    .empty-state i { font-size: 4rem; margin-bottom: 20px; color: var(--border-color); opacity: 0.5; }
+    .send-btn:hover { transform: scale(1.05); background: var(--primary-light); }
+    .send-btn:active { transform: scale(0.95); }
+
+    /* ==================== RESPONSIVE ==================== */
+    @media (max-width: 900px) {
+      .sidebar { width: 320px; min-width: 280px; }
+    }
 
     @media (max-width: 768px) {
-      .app-container { height: 100vh; width: 100%; border-radius: 0; }
-      .sidebar { width: 100%; position: absolute; height: 100%; transform: translateX(-100%); }
-      [dir="rtl"] .sidebar { transform: translateX(100%); }
-      .sidebar.active { transform: translateX(0); }
+      body { align-items: flex-start; }
+      .app-container { width: 100%; height: 100dvh; border-radius: 0; }
+      
+      /* Mobile Logic: Sidebar and Chat side-by-side but adjustable via JS if needed. 
+         For this CSS-only improvement, we keep flex but shrink sidebar */
+      .sidebar { width: 35%; min-width: 80px; }
+      .main-chat { width: 65%; }
+      
+      .sidebar-title span, .search-box, .user-name, .user-status-text {
+        transition: opacity 0.2s;
+      }
+
+      /* If sidebar gets too small, hide text */
+      .sidebar.compact .sidebar-title span,
+      .sidebar.compact .search-box,
+      .sidebar.compact .user-name,
+      .sidebar.compact .user-status-text {
+        display: none;
+      }
+      .sidebar.compact .sidebar-header { padding: 10px; text-align: center; }
+      .sidebar.compact .user-item { justify-content: center; padding: 10px 0; }
+      .sidebar.compact .avatar-small { margin: 0; }
+
+      .msg-bubble { max-width: 85%; font-size: 0.9rem; }
+      .chat-header { padding: 8px 10px; }
+    }
+
+    @media (max-width: 480px) {
+      .sidebar { width: 40px; min-width: 40px; }
+      .sidebar-header { display: none; } /* Hide header completely on very small screens or make it toggleable */
+      .sidebar { overflow: visible; }
+      .user-list { padding: 4px; }
+      .user-item { padding: 8px 4px; }
+      .avatar-small { width: 32px; height: 32px; font-size: 0.8rem; }
+      .main-chat { width: calc(100% - 40px); }
+      .send-btn { width: 40px; height: 40px; }
     }
   </style>
 </head>
@@ -267,7 +530,7 @@
           <i class="fa-solid fa-comments"></i>
           <span>Chat App</span>
         </div>
-        <div style="position: relative;">
+        <div class="search-box">
           <i class="fa-solid fa-magnifying-glass search-icon"></i>
           <input type="text" id="searchUser" data-i18n-placeholder="searchPlaceholder" autocomplete="off">
         </div>
@@ -283,11 +546,10 @@
             <i class="fa-solid fa-arrow-right"></i>
             <span class="back-label" data-i18n="backBtn">Back</span>
           </button>
-          
+
           <div class="chat-user-info">
-            <!-- تم التغيير هنا: من img إلى div -->
             <div id="headerAvatar" class="avatar-small avatar-letter" style="display:none;"></div>
-            
+
             <div class="chat-user-details">
               <div class="chat-user-name" id="headerName" data-i18n="selectUserText">Select a user</div>
               <div class="chat-meta" id="headerStatus" style="opacity: 0;">
@@ -296,7 +558,7 @@
             </div>
           </div>
         </div>
-        
+
         <div class="header-actions">
           <button class="icon-btn" id="langToggle" title="Switch Language">
             <i class="fa-solid fa-globe"></i>
@@ -310,16 +572,16 @@
 
       <div class="chat-area" id="chatArea">
         <div class="empty-state">
-            <i class="fa-regular fa-paper-plane"></i>
-            <p data-i18n="startChatText">Select a user to start chatting</p>
+          <i class="fa-regular fa-comments"></i>
+          <p data-i18n="startChatText">Select a user to start chatting</p>
         </div>
       </div>
 
       <div class="input-area">
         <div class="input-wrapper">
-          <i class="fa-regular fa-face-smile" style="color:var(--text-secondary); cursor:pointer;"></i>
+          <i class="fa-regular fa-face-smile action-icon"></i>
           <input type="text" class="input-field" id="messageInput" data-i18n-placeholder="typeMsgPlaceholder">
-          <i class="fa-solid fa-paperclip" style="color:var(--text-secondary); cursor:pointer;"></i>
+          <i class="fa-solid fa-paperclip action-icon"></i>
         </div>
         <button class="send-btn" id="sendBtn"><i class="fa-solid fa-paper-plane"></i></button>
       </div>
@@ -333,7 +595,7 @@
     const htmlEl = document.documentElement;
     const themeIcon = document.getElementById('themeIcon');
     const langLabel = document.getElementById('langLabel');
-    
+
     const translations = {
       en: {
         searchPlaceholder: "Search users...",
@@ -379,7 +641,7 @@
       htmlEl.setAttribute('dir', currentLang === 'ar' ? 'rtl' : 'ltr');
       langLabel.textContent = currentLang.toUpperCase();
       const arrowIcon = document.querySelector('#backBtn i');
-      if(arrowIcon) arrowIcon.className = currentLang === 'ar' ? 'fa-solid fa-arrow-left' : 'fa-solid fa-arrow-right';
+      if (arrowIcon) arrowIcon.className = currentLang === 'ar' ? 'fa-solid fa-arrow-left' : 'fa-solid fa-arrow-right';
       updateTexts();
     });
 
@@ -390,7 +652,7 @@
     // 2. FIREBASE LOGIC
     // ============================================================
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { 
+    import {
       getFirestore, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp, getDocs, doc, getDoc
     } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
     import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
@@ -459,12 +721,9 @@
       allUsers.forEach(user => {
         const div = document.createElement("div");
         div.className = "user-item";
-
-        // استخراج أول حرف
         const firstLetter = user.fullName ? user.fullName.charAt(0).toUpperCase() : "?";
-
+        
         div.innerHTML = `
-          <!-- عرض الحرف في الدائرة -->
           <div class="avatar-small avatar-letter">${firstLetter}</div>
           <div class="user-info">
             <div class="user-name">${user.fullName}</div>
@@ -473,7 +732,6 @@
             </div>
           </div>
         `;
-
         div.onclick = () => selectUser(user, div);
         userList.appendChild(div);
       });
@@ -489,21 +747,15 @@
     });
 
     function selectUser(user, element) {
-      headerAvatar.style.display = "flex"; // إظهار الأفاتار
+      headerAvatar.style.display = "flex";
       headerStatus.style.opacity = "1";
-
       const ids = [currentUserId, user.id].sort();
       currentChatId = ids[0] + "_" + ids[1];
-
       document.querySelectorAll(".user-item").forEach(el => el.classList.remove("active"));
       element.classList.add("active");
-
       headerName.textContent = user.fullName;
-      
-      // تحديث الحرف في الهيدر
       const firstLetter = user.fullName ? user.fullName.charAt(0).toUpperCase() : "?";
       headerAvatar.textContent = firstLetter;
-
       initRealtimeChat();
     }
 
@@ -532,14 +784,14 @@
       chatUnsubscribe = onSnapshot(q, snapshot => {
         chatArea.innerHTML = "";
         if (snapshot.empty) {
-          chatArea.innerHTML = `<div class="empty-state"><p>No messages yet. Say hi!</p></div>`;
+          chatArea.innerHTML = `<div class="empty-state" style="margin:0; border:none; background:transparent; box-shadow:none;"><p>No messages yet. Say hi!</p></div>`;
           return;
         }
         snapshot.forEach(doc => {
           const msg = doc.data();
           const div = document.createElement("div");
           div.className = "msg-bubble " + (msg.senderId === currentUserId ? "sent" : "received");
-          const time = msg.timestamp?.toDate ? msg.timestamp.toDate().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) : "";
+          const time = msg.timestamp?.toDate ? msg.timestamp.toDate().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : "";
           const sender = msg.senderId !== currentUserId ? `<div class="msg-sender">${msg.senderName}</div>` : "";
           div.innerHTML = `${sender}${msg.text}<span class="msg-time">${time}</span>`;
           chatArea.appendChild(div);
@@ -550,7 +802,6 @@
 
     backBtn.addEventListener("click", () => { window.location.href = "./index.html"; });
   </script>
-  
 </body>
 
 </html>
