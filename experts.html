@@ -767,6 +767,96 @@
                 padding: 0.3rem 0.8rem;
             }
         }
+        
+    /* Footer */
+    .site-footer {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: #fff;
+      padding: 4rem 0 1.5rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2.5rem;
+    }
+
+    .footer-brand img {
+      height: 55px;
+      margin-bottom: 1rem;
+      filter: brightness(0) invert(1);
+    }
+
+    .footer-brand p {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.85);
+    }
+
+    .site-footer h4 {
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+    }
+
+    .footer-links ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-links li {
+      margin-bottom: 0.6rem;
+    }
+
+    .footer-links a {
+      text-decoration: none;
+      color: rgba(255,255,255,0.85);
+      transition: 0.3s;
+    }
+
+    .footer-links a:hover {
+      color: var(--secondary);
+      padding-left: 5px;
+    }
+
+    .footer-contact p {
+      font-size: 0.95rem;
+      margin-bottom: 0.6rem;
+      color: rgba(255,255,255,0.85);
+    }
+
+    .footer-social {
+      margin-top: 1rem;
+      display: flex;
+      gap: 12px;
+    }
+
+    .footer-social a {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 18px;
+      color: #fff;
+      transition: 0.3s;
+    }
+
+    .footer-social a:hover {
+      background: var(--secondary);
+      transform: translateY(-3px);
+    }
+
+    .footer-bottom {
+      text-align: center;
+      margin-top: 3rem;
+      padding-top: 1.2rem;
+      border-top: 1px solid rgba(255,255,255,0.15);
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.75);
+    }
 
     </style>
 </head>
@@ -1138,53 +1228,58 @@
         </section>
     </main>
 
-    <!-- FOOTER -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div>
-                    <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
-                        <div
-                            style="width:2rem; height:2rem; border-radius:50%; background:var(--color-primary); display:flex; align-items:center; justify-content:center; color:white; font-weight:900; font-size: 1.2rem;">
-                            Z</div>
-                        <div style="font-size: 1.1rem; font-weight: 700; color: var(--text-main);"
-                            data-i18n="site_name">زراعة تك</div>
-                    </div>
-                    <p style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.6;" data-i18n="footer_desc">
-                        تقنية زراعية متطورة تعتمد على الذكاء الاصطناعي لخدمة المزارع العربي.</p>
-                </div>
+   <footer class="site-footer">
+  <div class="container footer-grid">
 
-                <div class="footer-links">
-                    <h4 class="footer-title" data-i18n="foot_menu">النظام</h4>
-                    <a href="#" data-i18n="nav_home">الرئيسية</a>
-                    <a href="#experts" data-i18n="nav_experts">الخبراء</a>
-                    <a href="#booking" data-i18n="nav_booking">الحجز</a>
-                </div>
+    <div class="footer-brand">
+      <img src="./smart_farm_no_bg-removebg-preview.png" alt="Zera3a-Tech Logo">
+      <p>
+        Zera3a-Tech is a smart agricultural ecosystem connecting farmers, buyers,
+        investors, and suppliers through modern technology.
+      </p>
+    </div>
 
-                <div class="footer-links">
-                    <h4 class="footer-title" data-i18n="foot_res">الموارد</h4>
-                    <a href="#" data-i18n="res_library">المكتبة الرقمية</a>
-                    <a href="#" data-i18n="res_soil">تحليل التربة</a>
-                    <a href="#" data-i18n="res_weather">الأرصاد الجوية</a>
-                </div>
+    <div class="footer-links">
+      <h4>Platform</h4>
+      <ul>
+        <li><a href="#">Marketplace</a></li>
+        <li><a href="#">Crop Tracking</a></li>
+        <li><a href="#">Cost Calculator</a></li>
+        <li><a href="#">Community</a></li>
+      </ul>
+    </div>
 
-                <div>
-                    <h4 class="footer-title" data-i18n="foot_newsletter">اشترك</h4>
-                    <div style="display: flex; gap: 0.5rem;">
-                        <input type="email" id="subEmail"
-                            style="padding: 0.5rem 0.75rem; border-radius: 0.5rem; border:1px solid var(--border-color); flex:1; background: var(--color-input-bg); color: var(--text-main); font-size: 0.9rem;">
-                        <button class="btn btn-primary" style="padding: 0.5rem 0.75rem;"><i
-                                data-lucide="arrow-right" style="width: 16px;"></i></button>
-                    </div>
-                </div>
-            </div>
+    <div class="footer-links">
+      <h4>Resources</h4>
+      <ul>
+        <li><a href="#">Farming Tips</a></li>
+        <li><a href="#">Livestock Guide</a></li>
+        <li><a href="#">Expert Advice</a></li>
+        <li><a href="#">Investment Opportunities</a></li>
+      </ul>
+    </div>
 
-            <div
-                style="text-align: center; border-top: 1px solid var(--border-color); padding-top: 1.5rem; color: var(--text-muted); font-size: 0.75rem;">
-                &copy; 2024 Ziraa Tech. <span data-i18n="rights">جميع الحقوق محفوظة</span>
-            </div>
-        </div>
-    </footer>
+    <div class="footer-contact">
+      <h4>Contact</h4>
+      <p>📍 Cairo, Egypt</p>
+      <p>📞 +20 123 456 7890</p>
+      <p>📧 support@zera3a-tech.com</p>
+
+      <div class="footer-social">
+        <a href="#">🌐</a>
+        <a href="#">📘</a>
+        <a href="#">🐦</a>
+        <a href="#">📸</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    © 2025 Zera3a-Tech. All rights reserved.
+  </div>
+</footer>
+
 
     <!-- MODAL -->
     <div class="modal-overlay" id="profileModal" onclick="closeModal(event)">
@@ -1539,3 +1634,4 @@
 </body>
 
 </html>
+
